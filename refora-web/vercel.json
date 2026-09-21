@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "npm install",
+  "env": {
+    "DATABASE_URL": "@refora-database-url",
+    "AUTH_SECRET": "@refora-auth-secret",
+    "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME": "dautrievu",
+    "CLOUDINARY_API_KEY": "@refora-cloudinary-api-key",
+    "CLOUDINARY_API_SECRET": "@refora-cloudinary-api-secret",
+    "RAZORPAY_KEY_ID": "@refora-razorpay-key-id",
+    "RAZORPAY_KEY_SECRET": "@refora-razorpay-key-secret",
+    "NEXT_PUBLIC_RAZORPAY_KEY_ID": "@refora-razorpay-key-id",
+    "SHIPROCKET_EMAIL": "@refora-shiprocket-email",
+    "SHIPROCKET_PASSWORD": "@refora-shiprocket-password",
+    "SHIPROCKET_BASE_URL": "https://apiv2.shiprocket.in/v1/external",
+    "RESEND_API_KEY": "@refora-resend-api-key",
+    "EMAIL_FROM": "noreply@refora.in",
+    "NEXT_PUBLIC_APP_URL": "https://refora.in",
+    "NEXT_PUBLIC_APP_NAME": "REFORA",
+    "NEXT_PUBLIC_WHATSAPP_NUMBER": "@refora-whatsapp-number",
+    "NEXT_PUBLIC_GA4_ID": "@refora-ga4-id",
+    "NEXT_PUBLIC_META_PIXEL_ID": "@refora-meta-pixel-id"
+  }
+}
