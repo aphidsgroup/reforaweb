@@ -1,6 +1,6 @@
 import { Star, BadgeCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { REVIEWS, COCOCREME, SHOW_SAMPLE_REVIEWS } from "@/lib/catalog";
+import { REVIEWS, SHOW_SAMPLE_REVIEWS } from "@/lib/catalog";
 
 export function StarRating({ rating, size = 13 }: { rating: number; size?: number }) {
   return (
@@ -29,6 +29,11 @@ export function StarRating({ rating, size = 13 }: { rating: number; size?: numbe
 export function ReviewsSection() {
   if (!SHOW_SAMPLE_REVIEWS || REVIEWS.length === 0) return null;
 
+  // Derived from the cards on screen rather than a hardcoded figure, so the
+  // headline aggregate can never claim more reviews than are actually shown.
+  const average =
+    Math.round((REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length) * 10) / 10;
+
   return (
     <section className="section bg-cream relative overflow-hidden grain grain-light" aria-label="Customer reviews">
       <div className="container-refora relative">
@@ -42,10 +47,10 @@ export function ReviewsSection() {
           </h2>
 
           <div className="flex items-center justify-center gap-3">
-            <StarRating rating={COCOCREME.rating} size={16} />
+            <StarRating rating={average} size={16} />
             <p className="text-sm text-espresso/65">
-              <span className="tnum font-medium text-espresso">{COCOCREME.rating}</span> average ·{" "}
-              <span className="tnum">{COCOCREME.reviewCount}</span> reviews
+              <span className="tnum font-medium text-espresso">{average}</span> average ·{" "}
+              <span className="tnum">{REVIEWS.length}</span> reviews
             </p>
           </div>
         </Reveal>

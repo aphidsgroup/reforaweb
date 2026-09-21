@@ -244,7 +244,17 @@ export function getPurchasableProducts(): Product[] {
    are clearly marked as sample content and the section is easy to disable.
    ═════════════════════════════════════════════════════════════════════════ */
 
-export const SHOW_SAMPLE_REVIEWS = true;
+/**
+ * Off by default, deliberately.
+ *
+ * The entries below are layout placeholders, not real feedback, and they
+ * render with names, cities and "Verified" badges. Shipping them on a live
+ * storefront would present fabricated social proof as genuine, so this stays
+ * false until the section is wired to approved rows in the `reviews` table.
+ *
+ * Set to true only for a local or staging walkthrough.
+ */
+export const SHOW_SAMPLE_REVIEWS = false;
 
 export const REVIEWS: Review[] = [
   {
