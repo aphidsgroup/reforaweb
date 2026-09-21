@@ -1,0 +1,442 @@
+﻿REFORA ΓÇö E-Commerce Website Requirements 
+ 
+We are launching REFORA with one product initially, but the website should be built in a way 
+that allows us to easily add multiple products, categories and variants in the future. 
+ 
+1. Design & Branding 
+ 
+* Premium, minimal and clean design matching REFORAΓÇÖs branding 
+* Modern, elegant and trustworthy aesthetic 
+* Mobile-first and fully responsive design 
+* Optimized for mobile, tablet and desktop 
+* Consistent typography, colours, buttons and visual elements 
+* Fast-loading website 
+* Easy and intuitive navigation 
+ 
+Home  
+ 
+ Hero/banner section 
+* REFORA introduction 
+* Featured/current product 
+* Product benefits/features 
+* Brand story 
+* Customer reviews/testimonials 
+* Instagram/social media section 
+* FAQ preview 
+* Call-to-action sections\ 
+* Review 
+(Please check the existing ecommerce site for all types ) this is just a small checklist if i have 
+left something kindly add it ) 
+ 
+Like amazon type to represent both organicas and skincare product in home 
+ 
+ 
+Dedicated page: REFORA ORGANIC 
+This can become a major part of the brand identity. 
+Hero 
+REFORA ORGANICΓÇï
+Pure essentials. Naturally sourced.ΓÇï
+Thoughtfully chosen everyday essentials rooted in simplicity, purity and tradition. 
+Categories 
+ΓùÅΓÇï ≡ƒÑÑ Coconut Oil 
+ΓùÅΓÇï ≡ƒî▒ Groundnut Oil 
+ΓùÅΓÇï ≡ƒºê Ghee 
+ΓùÅΓÇï ≡ƒî┐ Future organic/natural products 
+Then for each product: 
+ΓùÅΓÇï Product image 
+ΓùÅΓÇï Origin/source 
+ΓùÅΓÇï Ingredients 
+ΓùÅΓÇï How it's made/processed 
+ΓùÅΓÇï What makes it different 
+ΓùÅΓÇï Suggested uses 
+ΓùÅΓÇï Size/quantity 
+ΓùÅΓÇï Price 
+ΓùÅΓÇï Buy Now 
+ 
+About Us 
+ 
+* REFORA story 
+* Brand philosophy 
+* Product/brand vision 
+ 
+Shop / Products 
+ 
+* Product listing 
+* Product categories 
+* Search functionality 
+* Filters/sorting where applicable 
+* Ability to add more products/categories later 
+ 
+Individual Product Page 
+ 
+* High-quality product images 
+* Image zoom/gallery 
+* Product name 
+* Price 
+* MRP/discount if applicable 
+* Product description 
+* Benefits/features 
+* Ingredients/materials/specifications 
+* How to use 
+* Quantity/variants if applicable 
+* Stock availability 
+* Customer reviews & ratings 
+* Add to Cart / Buy Now 
+* Related products 
+ 
+3. Cart & Checkout 
+ 
+* Add/remove/update product quantity 
+* Cart summary 
+* Apply coupon/discount code 
+* Pincode entry 
+* Shipping charge calculation 
+* COD availability based on pincode 
+* Guest checkout 
+* Customer account/login option 
+* Address management 
+* Order summary before payment 
+* Mobile-friendly checkout 
+* GST details where applicable 
+ 
+4. Payment Gateway 
+ 
+Integration with a reliable payment gateway such as Razorpay. 
+ 
+Payment methods should include: 
+ 
+* UPI 
+* Credit/Debit Cards 
+* Net Banking 
+* Wallets/other supported methods 
+* COD 
+ 
+Required handling for: 
+ 
+* Successful payments 
+* Failed payments 
+* Pending payments 
+* Cancelled payments 
+* Refunds 
+ 
+5. Shipping Integration 
+ 
+Integration with Velocity/Shipfast. 
+ 
+Required: 
+ 
+* Pincode-based serviceability 
+* Pincode-based shipping charges 
+* COD availability by pincode 
+* Automatic order transfer to shipping partner 
+* AWB/shipping label generation 
+* Pickup request 
+* Shipment tracking 
+* Customer tracking page 
+* Delivery status updates 
+* Cancellation/return/RTO handling 
+* Shipping rules/free shipping if applicable 
+ 
+6. Orders & Customer Notifications 
+ 
+After an order is placed, customers should receive confirmation through appropriate 
+channels such as: 
+ 
+* Email 
+* WhatsApp 
+* SMS, where applicable 
+ 
+Notifications for: 
+ 
+* Order confirmation 
+* Payment confirmation 
+* Order shipped 
+* Out for delivery 
+* Delivered 
+* Cancellation 
+* Refund 
+ 
+7. WhatsApp Integration 
+ 
+* WhatsApp contact button 
+* Customer enquiry option 
+* Order-related WhatsApp notifications if supported 
+* Ability to connect REFORAΓÇÖs official WhatsApp Business account 
+ 
+8. Admin Dashboard 
+ 
+Admin should be able to manage: 
+ 
+Products 
+ 
+* Add/edit/delete products 
+* Prices 
+* Images 
+* Descriptions 
+* Categories 
+* Variants 
+* Stock 
+ 
+Orders 
+ 
+* View/manage orders 
+* Order status 
+* Customer details 
+* Payment status 
+* Shipping status 
+* Cancellation/refund management 
+* Export orders to Excel/CSV 
+ 
+Other 
+ 
+* Coupon/discount management 
+* Customer information 
+* Basic sales/order analytics 
+* Homepage/content management where possible 
+ 
+9. Marketing & Analytics 
+ 
+Integration/setup for: 
+ 
+* Google Analytics 4 
+* Google Search Console 
+* Meta Pixel 
+* Instagram 
+* Facebook 
+* WhatsApp 
+ 
+Also: 
+ 
+* Newsletter/email collection 
+* Abandoned-cart tracking/recovery capability 
+* Social sharing 
+* Product review/rating system 
+ 
+10. SEO 
+ 
+Basic technical SEO setup including: 
+ 
+* SEO-friendly URLs 
+* Page titles 
+* Meta descriptions 
+* Image alt text 
+* Sitemap.xml 
+* Robots.txt 
+* Product structured data/schema 
+* Google Search Console setup 
+* Mobile SEO 
+* Basic page-speed optimization 
+ 
+11. Legal Pages 
+ 
+Website should include editable pages for: 
+ 
+* Privacy Policy 
+* Terms & Conditions 
+* Shipping Policy 
+* Return & Refund Policy 
+* Cancellation Policy 
+* Cookie/consent information where applicable 
+ 
+12. Security 
+ 
+* SSL/HTTPS 
+* Secure payment integration 
+* Secure admin login 
+* Basic spam protection for forms 
+* Regular website/database backup 
+* Basic security configuration 
+ 
+13. Contact & Support 
+ 
+* Contact Us page 
+* Enquiry/contact form 
+* Official email 
+* WhatsApp 
+* Social media links 
+* FAQ section 
+ 
+14. Domain & Hosting 
+ 
+* Connect refora.in 
+* SSL configuration 
+* Hosting setup 
+* DNS configuration 
+* Business email integration  
+15. Scalability 
+ 
+Although REFORA is launching with one product, the website must be scalable for: 
+ 
+* Multiple products 
+* Multiple categories 
+* Product variants 
+* Different pricing 
+* Discounts/coupons 
+* Inventory management 
+* Future product launches 
+* Additional payment/shipping options 
+ 
+Adding future products should not require redevelopment of the core website. 
+ 
+16. Ownership & Handover ΓÇö IMPORTANT 
+ 
+All website-related assets must remain under REFORAΓÇÖs ownership. 
+ 
+This includes: 
+ 
+* Domain 
+* Hosting 
+* Website/admin account 
+* Source code 
+* Database 
+* Payment gateway account 
+* Shipping account/API 
+* Google Analytics 
+* Search Console 
+* Meta Pixel 
+* Other third-party integrations 
+ 
+We should receive full admin access and credentials for all relevant accounts and services. 
+ 
+17. Post-Launch Support 
+ 
+Kindly provide 
+ 
+ 
+* Warranty/bug-fixing period after launch 
+* Maintenance/support charges 
+* Response time for technical issues 
+ 
+Absolutely. If the main objective is to sell COCOCR├êME, the website requirement should 
+go beyond simply ΓÇ£having an online store.ΓÇ¥ It needs to be built for conversion, reach, 
+repeat purchases, and marketing. 
+Add this to your website requirement list: 
+Sales, Offers & Conversion Features 
+ΓùÅΓÇï Coupon code system ΓÇö ability to create, edit, activate/deactivate and set expiry 
+dates for coupons. 
+ΓùÅΓÇï Percentage discounts ΓÇö e.g. 10%, 15%, 20%. 
+ΓùÅΓÇï Fixed-amount discounts ΓÇö e.g. Γé╣20 off, Γé╣50 off. 
+ΓùÅΓÇï First-order coupon ΓÇö special discount for new customers. 
+ΓùÅΓÇï Minimum order value coupons ΓÇö e.g. Γé╣50 off on orders above Γé╣499. 
+ΓùÅΓÇï Product-specific discounts ΓÇö discount only on selected products. 
+ΓùÅΓÇï Bundle offers ΓÇö e.g. Buy 2 / Buy 3 / combo pricing. 
+ΓùÅΓÇï Buy X Get Y offers ΓÇö ability to run promotional campaigns later. 
+ΓùÅΓÇï Limited-time offers / countdown timer for launches and campaigns. 
+ΓùÅΓÇï Automatic discounts without requiring a coupon code. 
+ΓùÅΓÇï Free shipping threshold ΓÇö e.g. free shipping above a certain order value. 
+ΓùÅΓÇï Cart abandonment recovery ΓÇö email/WhatsApp reminders for customers who 
+leave items in their cart. 
+ΓùÅΓÇï Wishlist ΓÇö customers can save products for later. 
+ΓùÅΓÇï Related products / ΓÇ£You may also likeΓÇ¥ to increase order value. 
+ΓùÅΓÇï Upselling and cross-selling at product page, cart and checkout. 
+ΓùÅΓÇï Customer reviews and ratings with photo/video review capability. 
+ΓùÅΓÇï Referral/ambassador system ΓÇö ability to introduce referral codes later. 
+ΓùÅΓÇï Gift cards / store credits ΓÇö preferably available for future expansion. 
+ΓùÅΓÇï Repeat-purchase incentives ΓÇö coupons or offers for existing customers. 
+Reach & Marketing ΓÇö VERY IMPORTANT 
+The website should be built with customer acquisition and sales as a primary 
+objective, not merely as an informational website. It should be SEO-ready, fast, 
+mobile-first and optimized for conversion. 
+Include: 
+ΓùÅΓÇï SEO-friendly page structure and URLs. 
+ΓùÅΓÇï Google Search indexing and Google Search Console setup. 
+ΓùÅΓÇï Google Analytics / appropriate analytics setup. 
+ΓùÅΓÇï Meta Pixel / Meta advertising integration. 
+ΓùÅΓÇï Google Ads conversion tracking. 
+ΓùÅΓÇï Conversion tracking for View Product ΓåÆ Add to Cart ΓåÆ Checkout ΓåÆ Purchase. 
+ΓùÅΓÇï Social sharing buttons. 
+ΓùÅΓÇï Instagram integration. 
+ΓùÅΓÇï WhatsApp integration for customer enquiries/orders. 
+ΓùÅΓÇï WhatsApp click-to-chat. 
+ΓùÅΓÇï Email marketing integration. 
+ΓùÅΓÇï Newsletter/email collection. 
+ΓùÅΓÇï Promotional pop-ups/banners that can be switched on/off. 
+ΓùÅΓÇï Landing pages for Instagram/Google/Meta campaigns. 
+ΓùÅΓÇï SEO metadata for every product/page. 
+ΓùÅΓÇï Product structured data/schema where appropriate. 
+ΓùÅΓÇï Fast loading, especially on mobile. 
+ΓùÅΓÇï Image compression/WebP and performance optimization. 
+ΓùÅΓÇï Sitemap and robots.txt. 
+ΓùÅΓÇï Search-friendly product descriptions. 
+ΓùÅΓÇï Ability to create blogs/articles for SEO. 
+ΓùÅΓÇï Google Merchant Center/product-feed readiness if applicable. 
+ΓùÅΓÇï UTM/campaign tracking. 
+Checkout ΓÇö make buying extremely easy 
+ΓùÅΓÇï Guest checkout. 
+ΓùÅΓÇï Mobile-number/email checkout. 
+ΓùÅΓÇï UPI. 
+ΓùÅΓÇï Cards. 
+ΓùÅΓÇï Net banking. 
+ΓùÅΓÇï Wallets where supported. 
+ΓùÅΓÇï COD if you decide to offer it. 
+ΓùÅΓÇï Shipping charge displayed clearly before payment. 
+ΓùÅΓÇï Coupon field clearly visible. 
+ΓùÅΓÇï Automatic discount calculation. 
+ΓùÅΓÇï Order confirmation by email. 
+ΓùÅΓÇï Order confirmation by WhatsApp/SMS if supported. 
+ΓùÅΓÇï Order tracking. 
+ΓùÅΓÇï Clear cancellation/refund process. 
+ΓùÅΓÇï Failed-payment recovery. 
+Admin panel ΓÇö you MUST have control 
+You should be able to change without calling the developer: 
+ΓùÅΓÇï Product price 
+ΓùÅΓÇï MRP 
+ΓùÅΓÇï Product images 
+ΓùÅΓÇï Product description 
+ΓùÅΓÇï Stock 
+ΓùÅΓÇï Coupons 
+ΓùÅΓÇï Discounts 
+ΓùÅΓÇï Banners 
+ΓùÅΓÇï Offers 
+ΓùÅΓÇï Shipping charges 
+ΓùÅΓÇï Free-shipping threshold 
+ΓùÅΓÇï Homepage sections 
+ΓùÅΓÇï Blog posts 
+ΓùÅΓÇï Customer orders 
+ΓùÅΓÇï Order status 
+ΓùÅΓÇï Coupon expiry 
+ΓùÅΓÇï Promotional campaigns 
+And importantly: 
+All website, domain, hosting, payment gateway, analytics, Meta, Google, email, 
+WhatsApp and other third-party accounts must remain under REFORAΓÇÖs ownership, 
+with administrator access provided to REFORA. 
+One more thing IΓÇÖd add 
+Because we  launching a premium brand, donΓÇÖt make the website look like a discount store. 
+The offers should be presented elegantly. 
+For example: 
+LAUNCH OFFERΓÇï
+ Your first ritual starts here.ΓÇï
+ 15% OFF your first orderΓÇï
+ WELCOME15 
+rather than having huge ΓÇ£SALE!!! 50% OFF!!!ΓÇ¥ banners everywhere. 
+The goal should be: 
+Premium brand ΓåÆ trust ΓåÆ desire ΓåÆ easy purchase ΓåÆ repeat purchase. 
+. 
+ 
+Note: this is just a checklist from my side I have missed some important points 
+please notify us and add on based upon a e commerce site  
+ 
+ 
+Total Pages: 11
+=== PAGE 1 ===
+
+=== PAGE 2 ===
+
+=== PAGE 3 ===
+
+=== PAGE 4 ===
+
+=== PAGE 5 ===
+
+=== PAGE 6 ===
+
+=== PAGE 7 ===
+
+=== PAGE 8 ===
+
+=== PAGE 9 ===
+
+=== PAGE 10 ===
+
+=== PAGE 11 ===
+
