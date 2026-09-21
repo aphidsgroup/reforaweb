@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── REFORA Brand Palette ─────────────────────────────── */
+  --color-ivory:      #F7F2E9;
+  --color-cream:      #EFE5D5;
+  --color-espresso:   #29231F;
+  --color-gold:       #C7A56A;
+  --color-rose-gold:  #B88F7A;
+  --color-sand:       #E4D5C2;
+  --color-soft-white: #FFFDFC;
+
+  /* ── Typography ──────────────────────────────────────── */
+  --font-serif:   "Cormorant Garamond", Georgia, serif;
+  --font-sans:    "DM Sans", system-ui, -apple-system, sans-serif;
+
+  /* ── Spacing / Layout ────────────────────────────────── */
+  --max-width-content: 1320px;
+}
+
+/* ── Base Styles ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-espresso);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Focus Styles ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Typography Utility Classes ─────────────────────────── */
+.font-serif { font-family: var(--font-serif); }
+.font-sans  { font-family: var(--font-sans); }
+
+/* ── Gold Rule Separator ─────────────────────────────────── */
+.gold-rule {
+  width: 40px;
+  height: 1px;
+  background-color: var(--color-gold);
+  display: block;
+}
+
+/* ── Content Container ───────────────────────────────────── */
+.container-refora {
+  width: 100%;
+  max-width: var(--max-width-content);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-refora {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-refora {
+    padding-inline: 3rem;
+  }
+}
+
+/* ── Button Base ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.875rem 2rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--color-espresso);
+  color: var(--color-soft-white);
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-espresso);
+  border: 1px solid var(--color-espresso);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-espresso);
+  color: var(--color-soft-white);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-espresso);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid currentColor;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+/* ── Form Elements ───────────────────────────────────────── */
+.input-refora {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-soft-white);
+  border: 1px solid var(--color-sand);
+  border-radius: 2px;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--color-espresso);
+  transition: border-color 0.15s ease;
+}
+
+.input-refora:focus {
+  outline: none;
+  border-color: var(--color-espresso);
+}
+
+.input-refora::placeholder {
+  color: var(--color-rose-gold);
+  opacity: 0.7;
+}
+
+/* ── Section spacing ─────────────────────────────────────── */
+.section {
+  padding-block: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 7rem;
+  }
+}
+
+/* ── Announcement Bar ────────────────────────────────────── */
+.announcement-bar {
+  background-color: var(--color-espresso);
+  color: var(--color-cream);
+  text-align: center;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 1rem;
+}
+
+/* ── Quantity Stepper ────────────────────────────────────── */
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--color-sand);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.qty-stepper button {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-espresso);
+  transition: background-color 0.1s;
+}
+
+.qty-stepper button:hover {
+  background-color: var(--color-sand);
+}
+
+.qty-stepper span {
+  min-width: 2.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+}
