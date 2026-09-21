@@ -19,7 +19,7 @@ function AddEnv($name, $value, $env = "production") {
 }
 
 # Required — already known
-AddEnv "DATABASE_URL" "postgresql://neondb_owner:npg_0DFwCeRtgl6K@ep-withered-butterfly-azdhe1sz-pooler.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+AddEnv "DATABASE_URL" "AWAITING_CLIENT"
 AddEnv "NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME" "dautrievu"
 AddEnv "CLOUDINARY_API_KEY" "QMhLEN39qWJt_r8uWZsinXLTDKs"
 AddEnv "SHIPROCKET_BASE_URL" "https://apiv2.shiprocket.in/v1/external"
