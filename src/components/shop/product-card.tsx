@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ProductVisual } from "@/components/ui/brand-art";
-import { StarRating } from "@/components/home/reviews-section";
+import { StarRating } from "@/components/ui/star-rating";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/lib/catalog";
 

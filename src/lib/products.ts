@@ -1,5 +1,6 @@
 import { eq, sql, desc, inArray } from "drizzle-orm";
 import { db } from "@/db";
+import { withTimeout } from "@/lib/with-timeout";
 import { products, inventory, productImages, reviews } from "@/db/schema";
 import {
   ALL_PRODUCTS,
@@ -28,31 +29,6 @@ import {
  * `specifications` jsonb column. The admin form writes the columns it knows
  * about and leaves this untouched.
  */
-
-/**
- * Budget for any single storefront query.
- *
- * A try/catch alone is not enough protection: an unreachable or very slow
- * database does not reject, it hangs. Without this, a Vercel build whose
- * database is down spends its whole 60s per-page budget waiting and then fails
- * the deploy, instead of quietly falling back to the catalog. Verified by
- * building against a dead host — it timed out on every product page.
- *
- * Neon answers in tens of milliseconds, so five seconds is generous.
- */
-const QUERY_TIMEOUT_MS = 5000;
-
-function withTimeout<T>(work: Promise<T>, label: string): Promise<T> {
-  return Promise.race([
-    work,
-    new Promise<never>((_, reject) =>
-      setTimeout(
-        () => reject(new Error(`${label} exceeded ${QUERY_TIMEOUT_MS}ms`)),
-        QUERY_TIMEOUT_MS
-      ).unref?.()
-    ),
-  ]) as Promise<T>;
-}
 
 type Specifications = Partial<{
   subtitle: string;

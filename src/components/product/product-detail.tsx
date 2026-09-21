@@ -6,7 +6,7 @@ import { Minus, Plus, Check, Truck, ShieldCheck, RotateCcw } from "lucide-react"
 import { useCartStore } from "@/store/cart";
 import { formatPrice, cn } from "@/lib/utils";
 import { ProductVisual, BrandIcon } from "@/components/ui/brand-art";
-import { StarRating } from "@/components/home/reviews-section";
+import { StarRating } from "@/components/ui/star-rating";
 import { PincodeCheck } from "@/components/product/pincode-check";
 import { Reveal } from "@/components/ui/reveal";
 import { LAUNCH_OFFER, type Product } from "@/lib/catalog";

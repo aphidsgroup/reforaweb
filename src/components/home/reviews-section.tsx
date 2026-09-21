@@ -1,22 +1,7 @@
-import { Star, BadgeCheck } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { StarRating } from "@/components/ui/star-rating";
 import { getApprovedReviews } from "@/lib/reviews";
-
-export function StarRating({ rating, size = 13 }: { rating: number; size?: number }) {
-  return (
-    <div className="flex items-center gap-0.5" aria-label={`${rating} out of 5 stars`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={size}
-          strokeWidth={0}
-          className={i < Math.round(rating) ? "fill-gold text-gold" : "fill-sand text-sand"}
-          aria-hidden="true"
-        />
-      ))}
-    </div>
-  );
-}
 
 /**
  * Customer reviews.
@@ -58,9 +43,11 @@ export async function ReviewsSection() {
               <figure className="h-full flex flex-col bg-soft-white border border-sand rounded-sm p-7 card card-hover">
                 <StarRating rating={review.rating} />
 
-                <figcaption className="font-serif text-xl text-espresso mt-4 mb-3 leading-snug">
-                  {review.title}
-                </figcaption>
+                {review.title && (
+                  <figcaption className="font-serif text-xl text-espresso mt-4 mb-3 leading-snug">
+                    {review.title}
+                  </figcaption>
+                )}
 
                 <blockquote className="text-sm text-espresso/68 leading-relaxed flex-1 text-pretty">
                   {review.body}
@@ -79,7 +66,7 @@ export async function ReviewsSection() {
                       {review.location}
                       {review.verified && (
                         <>
-                          <span aria-hidden="true">·</span>
+                          {review.location && <span aria-hidden="true">·</span>}
                           <BadgeCheck size={12} strokeWidth={1.6} className="text-gold" aria-hidden="true" />
                           Verified
                         </>
