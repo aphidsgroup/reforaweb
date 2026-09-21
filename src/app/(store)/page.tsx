@@ -10,7 +10,8 @@ import { AssuranceRow } from "@/components/home/assurance-row";
 import { InstagramSection } from "@/components/home/instagram-section";
 import { HomeFaqs } from "@/components/home/home-faqs";
 import { NewsletterSignup } from "@/components/home/newsletter-signup";
-import { COCOCREME, HOME_FAQS } from "@/lib/catalog";
+import { HOME_FAQS } from "@/lib/catalog";
+import { getFeaturedProduct } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "REFORA — A More Thoughtful Everyday Ritual",
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
     "Meet COCOCRÈME — coconut milk soap with colloidal oatmeal. Considered skincare and pure organic essentials from REFORA. Restore · Renew · Refora.",
   alternates: { canonical: "/" },
 };
+
+export const revalidate = 300;
 
 /** FAQ structured data — earns the rich result for the questions below. */
 const faqSchema = {
@@ -30,24 +33,29 @@ const faqSchema = {
   })),
 };
 
-const productSchema = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: COCOCREME.name,
-  description: COCOCREME.shortDescription,
-  brand: { "@type": "Brand", name: "REFORA" },
-  offers: {
-    "@type": "Offer",
-    priceCurrency: "INR",
-    price: (COCOCREME.priceInPaise / 100).toFixed(2),
-    availability: COCOCREME.inStock
-      ? "https://schema.org/InStock"
-      : "https://schema.org/PreOrder",
-    url: "https://refora.in/products/cococreme",
-  },
-};
+function buildProductSchema(product: Awaited<ReturnType<typeof getFeaturedProduct>>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.shortDescription,
+    brand: { "@type": "Brand", name: "REFORA" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price: (product.priceInPaise / 100).toFixed(2),
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/PreOrder",
+      url: `https://refora.in/products/${product.slug}`,
+    },
+  };
+}
 
-export default function HomePage() {
+export default async function HomePage() {
+  const featured = await getFeaturedProduct();
+  const productSchema = buildProductSchema(featured);
+
   return (
     <>
       <script
@@ -60,16 +68,16 @@ export default function HomePage() {
       />
 
       {/* A · Product-led hero */}
-      <HeroSection />
+      <HeroSection product={featured} />
 
       {/* B · Trust marquee */}
       <TrustStrip />
 
       {/* C · Featured launch product, with a working buy panel */}
-      <FeaturedProduct />
+      <FeaturedProduct product={featured} />
 
       {/* D · Why it works — the three confirmed claims */}
-      <ProductDetails />
+      <ProductDetails product={featured} />
 
       {/* E · Both ranges, given equal weight */}
       <BrandRanges />

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ShopGrid } from "@/components/shop/shop-grid";
 import { Reveal } from "@/components/ui/reveal";
-import { ALL_PRODUCTS } from "@/lib/catalog";
+import { getAllProducts } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Shop",
@@ -16,7 +16,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ShopPage() {
+// Revalidated on a timer, and immediately whenever /admin saves a product.
+export const revalidate = 300;
+
+export default async function ShopPage() {
+  const catalog = await getAllProducts();
+
   return (
     <>
       {/* ── Page header ───────────────────────────────────────────────── */}
@@ -39,7 +44,7 @@ export default function ShopPage() {
       </section>
 
       <Suspense fallback={<div className="container-refora section" />}>
-        <ShopGrid products={ALL_PRODUCTS} />
+        <ShopGrid products={catalog} />
       </Suspense>
     </>
   );

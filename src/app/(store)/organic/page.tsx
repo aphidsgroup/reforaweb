@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { EditorialVisual, ProductVisual, BrandIcon, OatSprigMotif } from "@/components/ui/brand-art";
 import { Reveal } from "@/components/ui/reveal";
 import { NewsletterSignup } from "@/components/home/newsletter-signup";
-import { ORGANIC_PRODUCTS } from "@/lib/catalog";
+import { getProductsByRange } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "REFORA ORGANIC — Pure essentials, naturally sourced",
@@ -36,7 +36,11 @@ const PRINCIPLES = [
   },
 ];
 
-export default function OrganicPage() {
+export const revalidate = 300;
+
+export default async function OrganicPage() {
+  const ORGANIC_PRODUCTS = await getProductsByRange("organic");
+
   return (
     <>
       {/* ═══ Hero ══════════════════════════════════════════════════════ */}

@@ -7,20 +7,19 @@ import { useCartStore } from "@/store/cart";
 import { formatPrice, cn } from "@/lib/utils";
 import { ProductVisual, BrandIcon } from "@/components/ui/brand-art";
 import { Reveal } from "@/components/ui/reveal";
-import { COCOCREME, LAUNCH_OFFER } from "@/lib/catalog";
+import { LAUNCH_OFFER, type Product } from "@/lib/catalog";
 
 const VIEWS = [
   { kind: "carton", label: "Carton", tone: "glow" },
   { kind: "soap", label: "The bar", tone: "warm" },
 ] as const;
 
-export function FeaturedProduct() {
+export function FeaturedProduct({ product }: { product: Product }) {
   const [quantity, setQuantity] = useState(1);
   const [view, setView] = useState(0);
   const [added, setAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
 
-  const product = COCOCREME;
   const saving = product.mrpInPaise - product.priceInPaise;
   const savingPct = product.mrpInPaise > 0 ? Math.round((saving / product.mrpInPaise) * 100) : 0;
 

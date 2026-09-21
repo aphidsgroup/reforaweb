@@ -1,12 +1,12 @@
 import { BrandIcon } from "@/components/ui/brand-art";
 import { Reveal } from "@/components/ui/reveal";
-import { COCOCREME } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 
 /**
  * The three confirmed product claims, set as the brand board draws them:
  * a thin-line icon in a ring, a short label, a line of support copy.
  */
-export function ProductDetails() {
+export function ProductDetails({ product: COCOCREME }: { product: Product }) {
   return (
     <section className="section bg-soft-white" aria-label="Why COCOCRÈME">
       <div className="container-refora">

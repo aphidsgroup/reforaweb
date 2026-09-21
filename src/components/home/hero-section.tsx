@@ -2,14 +2,14 @@ import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { ProductVisual } from "@/components/ui/brand-art";
 import { Reveal } from "@/components/ui/reveal";
-import { COCOCREME } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 
 /**
  * Editorial split hero — type on the left, product study on the right.
  * On mobile the product sits above the copy so the first thing seen is
  * the thing being sold.
  */
-export function HeroSection() {
+export function HeroSection({ product: COCOCREME }: { product: Product }) {
   return (
     <section className="relative bg-cream overflow-hidden" aria-label="COCOCRÈME — featured">
       <div className="container-refora">
@@ -54,7 +54,9 @@ export function HeroSection() {
               </div>
             </Reveal>
 
-            {/* Social proof — quiet, not shouted */}
+            {/* Social proof — quiet, not shouted. Hidden until real approved
+                reviews exist, so the site never claims a rating it cannot back. */}
+            {COCOCREME.reviewCount > 0 && (
             <Reveal delay={320}>
               <div className="flex items-center gap-4 pt-7 border-t border-sand/80">
                 <div className="flex items-center gap-1" aria-hidden="true">
@@ -68,6 +70,7 @@ export function HeroSection() {
                 </p>
               </div>
             </Reveal>
+            )}
           </div>
 
           {/* ── Product study ──────────────────────────────────────────── */}

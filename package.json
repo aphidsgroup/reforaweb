@@ -10,7 +10,8 @@
     "admin:create": "node scripts/create-admin.mjs",
     "db:migrate": "node migrate.js",
     "db:generate": "drizzle-kit generate",
-    "db:check": "node scripts/db-check.mjs"
+    "db:check": "node scripts/db-check.mjs",
+    "db:seed": "node scripts/seed-catalog.mjs"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.3",

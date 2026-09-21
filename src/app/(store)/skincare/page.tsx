@@ -5,7 +5,7 @@ import { EditorialVisual, BrandIcon } from "@/components/ui/brand-art";
 import { ProductCard } from "@/components/shop/product-card";
 import { Reveal } from "@/components/ui/reveal";
 import { ReviewsSection } from "@/components/home/reviews-section";
-import { COCOCREME } from "@/lib/catalog";
+import { getFeaturedProduct } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Skincare",
@@ -19,7 +19,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SkincarePage() {
+export const revalidate = 300;
+
+export default async function SkincarePage() {
+  const COCOCREME = await getFeaturedProduct();
+
   return (
     <>
       {/* ═══ Hero ══════════════════════════════════════════════════════ */}
