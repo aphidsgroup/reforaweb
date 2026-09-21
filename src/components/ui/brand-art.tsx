@@ -147,6 +147,32 @@ export function BrandIcon({
    Product studies
    ═════════════════════════════════════════════════════════════════════════ */
 
+/**
+ * Caps a line of packaging copy to the width of the panel it sits on.
+ *
+ * Callers pass product names of wildly different lengths ("Ghee" through
+ * "Cold Pressed Groundnut Oil") into fixed-width label panels, so an
+ * unconstrained <text> runs straight off the artwork. Returning `textLength`
+ * unconditionally is not the answer either — it would stretch a short name to
+ * fill the panel.
+ *
+ * So: estimate the natural width, and only pin `textLength` when the string
+ * would actually overflow. The estimate is deliberately slightly generous, so
+ * the failure mode is a hair of extra compression rather than an overflow.
+ */
+function fitText(
+  text: string,
+  fontSize: number,
+  maxWidth: number,
+  /** Mean glyph width as a fraction of font size. Caps and serifs run wider. */
+  widthRatio = 0.55
+): { textLength?: number; lengthAdjust?: "spacingAndGlyphs" } {
+  const estimated = text.length * fontSize * widthRatio;
+  return estimated > maxWidth
+    ? { textLength: maxWidth, lengthAdjust: "spacingAndGlyphs" }
+    : {};
+}
+
 /** COCOCRÈME — an embossed soap bar resting on a lit plinth. */
 function SoapBarStudy({ label = "COCOCRÈME" }: { label?: string }) {
   return (
@@ -197,7 +223,8 @@ function SoapBarStudy({ label = "COCOCRÈME" }: { label?: string }) {
         textAnchor="middle"
         fontFamily="var(--font-serif)"
         fontSize="20"
-        letterSpacing="7"
+        textLength="124"
+        lengthAdjust="spacing"
         fill="#B39A76"
         opacity="0.85"
       >
@@ -254,63 +281,79 @@ function CartonStudy({
       </defs>
 
       <ellipse cx="200" cy="120" rx="180" ry="130" fill="#FFFDFC" opacity="0.5" />
-      <ellipse cx="214" cy="336" rx="118" ry="24" fill="#29231F" opacity="0.16" filter="url(#blur20)" />
+      <ellipse cx="216" cy="348" rx="118" ry="24" fill="#29231F" opacity="0.16" filter="url(#blur20)" />
 
+      {/* Box geometry — front face spans x 118→234 (116 wide) and shears
+          +36y across that width; depth vector is (+78, −36). The typography
+          below is placed on that exact plane, so these numbers and the
+          skewY angle must change together. */}
       <g filter="url(#boxShadow)">
         {/* Top face */}
-        <path d="M130 116l84-34 88 34-84 32z" fill="url(#boxTop)" />
+        <path d="M118 122L196 86L312 122L234 158Z" fill="url(#boxTop)" />
         {/* Front face */}
-        <path d="M130 116v186l84 34V148z" fill="url(#boxFront)" />
+        <path d="M118 122V310L234 346V158Z" fill="url(#boxFront)" />
         {/* Right side */}
-        <path d="M214 148v188l88-36V116z" fill="url(#boxSide)" />
+        <path d="M234 158L312 122V310L234 346Z" fill="url(#boxSide)" />
       </g>
 
-      {/* Front panel typography */}
-      <g transform="translate(172 214) rotate(-4.5)">
+      {/* Front panel typography.
+          skewY(17.24°) === atan(36 / 116), so the lines sit parallel to the
+          face's top and bottom edges. Every line carries a textLength that is
+          comfortably inside the 116-unit face width, which keeps the setting
+          on the panel whatever the rendered font's metrics turn out to be. */}
+      <g transform="translate(176 234) skewY(17.24)">
         <text
+          y="-44"
           textAnchor="middle"
           fontFamily="var(--font-serif)"
-          fontSize="15"
-          letterSpacing="5"
+          fontSize="12.5"
+          textLength="76"
+          lengthAdjust="spacing"
           fill="#8F7658"
         >
           REFORA
         </text>
-        <line x1="-28" y1="12" x2="28" y2="12" stroke="#C7A56A" strokeWidth="0.8" />
+
+        <line x1="-24" y1="-32" x2="24" y2="-32" stroke="#C7A56A" strokeWidth="0.8" />
+
         <text
-          y="38"
+          y="-4"
           textAnchor="middle"
           fontFamily="var(--font-serif)"
-          fontSize="17"
-          letterSpacing="1.5"
+          fontSize="14"
           fill="#4A3D35"
+          {...fitText(label, 14, 86, 0.72)}
         >
           {label}
         </text>
+
         <text
-          y="58"
+          y="16"
           textAnchor="middle"
           fontFamily="var(--font-sans)"
-          fontSize="8"
-          letterSpacing="0.6"
+          fontSize="7.5"
           fill="#8F7658"
+          {...fitText(sublabel, 7.5, 62)}
         >
           {sublabel}
         </text>
+
         <text
-          y="94"
+          y="64"
           textAnchor="middle"
           fontFamily="var(--font-sans)"
-          fontSize="7"
-          letterSpacing="1.4"
+          fontSize="6.5"
+          textLength="50"
+          lengthAdjust="spacingAndGlyphs"
           fill="#A87F68"
         >
           100 g / 3.52 oz
         </text>
       </g>
 
-      {/* Embossed botanical on the side panel */}
-      <g transform="translate(236 176) scale(0.26)" opacity="0.28" color="#8F7658">
+      {/* Embossed botanical on the side panel — sheared onto the side plane,
+          which rises by 36y across its 78-unit depth. */}
+      <g transform="translate(252 206) skewY(-24.8) scale(0.22)" opacity="0.3" color="#8F7658">
         <LeafMotif className="w-[200px]" />
       </g>
     </svg>
@@ -356,17 +399,46 @@ function BottleStudy({ label = "COCONUT OIL" }: { label?: string }) {
         <path d="M156 210h108" stroke="#FFFDFC" strokeWidth="2" opacity="0.7" />
       </g>
 
-      {/* Label */}
+      {/* Label — the 100-unit panel is the hard constraint, so each line is
+          pinned with textLength. Callers pass product names of very different
+          lengths ("Ghee" through "Cold Pressed Coconut Oil") and without this
+          the longer ones run off the bottle. */}
       <g>
         <rect x="160" y="228" width="100" height="72" rx="2" fill="#FFFDFC" opacity="0.94" />
-        <text x="210" y="252" textAnchor="middle" fontFamily="var(--font-serif)" fontSize="12" letterSpacing="4" fill="#8F7658">
+        <text
+          x="210"
+          y="252"
+          textAnchor="middle"
+          fontFamily="var(--font-serif)"
+          fontSize="12"
+          textLength="66"
+          lengthAdjust="spacing"
+          fill="#8F7658"
+        >
           REFORA
         </text>
         <line x1="186" y1="260" x2="234" y2="260" stroke="#C7A56A" strokeWidth="0.8" />
-        <text x="210" y="278" textAnchor="middle" fontFamily="var(--font-sans)" fontSize="8" letterSpacing="1.2" fill="#4A3D35">
+        <text
+          x="210"
+          y="278"
+          textAnchor="middle"
+          fontFamily="var(--font-sans)"
+          fontSize="8"
+          fill="#4A3D35"
+          {...fitText(label, 8, 84)}
+        >
           {label}
         </text>
-        <text x="210" y="292" textAnchor="middle" fontFamily="var(--font-sans)" fontSize="6.5" letterSpacing="1" fill="#A87F68">
+        <text
+          x="210"
+          y="292"
+          textAnchor="middle"
+          fontFamily="var(--font-sans)"
+          fontSize="6.5"
+          textLength="58"
+          lengthAdjust="spacingAndGlyphs"
+          fill="#A87F68"
+        >
           COLD PRESSED
         </text>
       </g>
