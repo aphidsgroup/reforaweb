@@ -68,25 +68,25 @@ export async function generateMetadata({
 function ArticleContent({ content }: { content: string }) {
   const lines = content.split("\n");
   return (
-    <div className="space-y-4 text-[#29231F]/75 leading-relaxed max-w-none">
+    <div className="space-y-4 text-espresso/75 leading-relaxed max-w-none">
       {lines.map((line, i) => {
         if (line.startsWith("# ")) {
           return (
-            <h1 key={i} className="font-serif text-3xl text-[#29231F] mt-8 mb-2">
+            <h1 key={i} className="font-serif text-3xl text-espresso mt-8 mb-2">
               {line.slice(2)}
             </h1>
           );
         }
         if (line.startsWith("## ")) {
           return (
-            <h2 key={i} className="font-serif text-2xl text-[#29231F] mt-6 mb-2">
+            <h2 key={i} className="font-serif text-2xl text-espresso mt-6 mb-2">
               {line.slice(3)}
             </h2>
           );
         }
         if (line.startsWith("### ")) {
           return (
-            <h3 key={i} className="font-medium text-lg text-[#29231F] mt-4 mb-1">
+            <h3 key={i} className="font-medium text-lg text-espresso mt-4 mb-1">
               {line.slice(4)}
             </h3>
           );
@@ -99,7 +99,7 @@ function ArticleContent({ content }: { content: string }) {
           <p key={i} className="text-base">
             {parts.map((part, j) =>
               part.startsWith("**") && part.endsWith("**") ? (
-                <strong key={j} className="text-[#29231F]">
+                <strong key={j} className="text-espresso">
                   {part.slice(2, -2)}
                 </strong>
               ) : (
@@ -149,10 +149,10 @@ export default async function JournalArticlePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
 
-      <div className="bg-[#F7F2E9] min-h-screen">
+      <div className="bg-ivory min-h-screen">
         {/* Cover image */}
         {article.coverImageUrl && (
-          <div className="w-full aspect-[21/9] bg-[#EFE5D5] overflow-hidden">
+          <div className="w-full aspect-[21/9] bg-cream overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={article.coverImageUrl}
@@ -165,9 +165,9 @@ export default async function JournalArticlePage({
         <div className="container-refora max-w-2xl mx-auto py-12">
           {/* Breadcrumb */}
           <nav className="mb-8" aria-label="Breadcrumb">
-            <ol className="flex items-center gap-2 text-xs text-[#29231F]/40">
+            <ol className="flex items-center gap-2 text-xs text-espresso/40">
               <li>
-                <Link href="/" className="hover:text-[#29231F] transition-colors">
+                <Link href="/" className="hover:text-espresso transition-colors">
                   Home
                 </Link>
               </li>
@@ -175,13 +175,13 @@ export default async function JournalArticlePage({
               <li>
                 <Link
                   href="/journal"
-                  className="hover:text-[#29231F] transition-colors"
+                  className="hover:text-espresso transition-colors"
                 >
                   Journal
                 </Link>
               </li>
               <li aria-hidden="true">›</li>
-              <li className="text-[#29231F]/60 truncate max-w-[200px]">
+              <li className="text-espresso/60 truncate max-w-[200px]">
                 {article.title}
               </li>
             </ol>
@@ -193,7 +193,7 @@ export default async function JournalArticlePage({
               {(article.tags as string[]).map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] tracking-widest text-[#C7A56A] uppercase"
+                  className="text-[10px] tracking-widest text-gold uppercase"
                 >
                   {tag}
                 </span>
@@ -202,14 +202,14 @@ export default async function JournalArticlePage({
           )}
 
           {/* Title */}
-          <h1 className="font-serif text-4xl lg:text-5xl font-light text-[#29231F] leading-tight mb-4">
+          <h1 className="font-serif text-4xl lg:text-5xl font-light text-espresso leading-tight mb-4">
             {article.title}
           </h1>
 
           {/* Date */}
           <time
             dateTime={article.publishedAt}
-            className="block text-xs text-[#29231F]/40 mb-8"
+            className="block text-xs text-espresso/40 mb-8"
           >
             {publishedDate.toLocaleDateString("en-IN", {
               year: "numeric",
@@ -220,7 +220,7 @@ export default async function JournalArticlePage({
 
           {/* Excerpt */}
           {article.excerpt && (
-            <p className="text-lg text-[#29231F]/60 leading-relaxed border-l-2 border-[#C7A56A] pl-4 mb-8 italic font-serif">
+            <p className="text-lg text-espresso/60 leading-relaxed border-l-2 border-gold pl-4 mb-8 italic font-serif">
               {article.excerpt}
             </p>
           )}
@@ -231,7 +231,7 @@ export default async function JournalArticlePage({
           <ArticleContent content={article.content} />
 
           {/* Back to journal */}
-          <div className="mt-12 pt-8 border-t border-[#E4D5C2]">
+          <div className="mt-12 pt-8 border-t border-sand">
             <Link href="/journal" className="btn-ghost text-sm">
               ← Back to Journal
             </Link>

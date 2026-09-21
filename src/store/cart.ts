@@ -8,7 +8,8 @@ export interface CartItem {
   name: string;
   variantName?: string;
   slug: string;
-  imageUrl: string;
+  /** null when the product has no photograph yet — the UI composes a study. */
+  imageUrl: string | null;
   priceInPaise: number;
   quantity: number;
 }

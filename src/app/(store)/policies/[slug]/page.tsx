@@ -193,13 +193,13 @@ function PolicyContent({ content }: { content: string }) {
   // Very simple: bold **text** and line breaks — not full markdown
   const lines = content.split("\n");
   return (
-    <div className="prose prose-sm max-w-none text-[#29231F]/75 leading-relaxed space-y-3">
+    <div className="prose prose-sm max-w-none text-espresso/75 leading-relaxed space-y-3">
       {lines.map((line, i) => {
         if (line.startsWith("**") && line.endsWith("**") && line.length > 4) {
           return (
             <h3
               key={i}
-              className="font-semibold text-[#29231F] text-base mt-6 mb-1"
+              className="font-semibold text-espresso text-base mt-6 mb-1"
             >
               {line.slice(2, -2)}
             </h3>
@@ -242,18 +242,18 @@ export default async function PolicyPage({
   const isPlaceholder = !policy.updatedAt;
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
+    <div className="bg-ivory min-h-screen">
       {/* Header */}
-      <div className="bg-[#EFE5D5] py-14 border-b border-[#E4D5C2]">
+      <div className="bg-cream py-14 border-b border-sand">
         <div className="container-refora max-w-2xl mx-auto">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
+          <p className="text-xs tracking-[0.14em] text-gold uppercase mb-3">
             Legal
           </p>
-          <h1 className="font-serif text-4xl lg:text-5xl font-light text-[#29231F]">
+          <h1 className="font-serif text-4xl lg:text-5xl font-light text-espresso">
             {policy.title}
           </h1>
           {policy.updatedAt && (
-            <p className="text-xs text-[#29231F]/40 mt-3">
+            <p className="text-xs text-espresso/40 mt-3">
               Last updated:{" "}
               {new Date(policy.updatedAt).toLocaleDateString("en-IN", {
                 year: "numeric",
@@ -267,8 +267,8 @@ export default async function PolicyPage({
 
       <div className="container-refora max-w-2xl mx-auto py-12">
         {isPlaceholder && (
-          <div className="bg-[#C7A56A]/10 border border-[#C7A56A]/30 rounded-sm px-4 py-3 mb-8">
-            <p className="text-xs text-[#C7A56A]">
+          <div className="bg-gold/10 border border-gold/30 rounded-sm px-4 py-3 mb-8">
+            <p className="text-xs text-gold">
               This policy is a placeholder and will be finalized before launch.
               It is provided for information only and does not constitute legal
               advice.
@@ -279,14 +279,14 @@ export default async function PolicyPage({
         <PolicyContent content={policy.content} />
 
         {/* Policy navigation */}
-        <div className="mt-12 pt-8 border-t border-[#E4D5C2]">
-          <p className="text-xs text-[#29231F]/50 mb-4">Other policies:</p>
+        <div className="mt-12 pt-8 border-t border-sand">
+          <p className="text-xs text-espresso/50 mb-4">Other policies:</p>
           <div className="flex flex-wrap gap-2">
             {POLICY_SLUGS.filter((s) => s !== policySlug).map((s) => (
               <a
                 key={s}
                 href={`/policies/${s}`}
-                className="text-xs border border-[#E4D5C2] px-3 py-1.5 rounded-sm text-[#29231F]/60 hover:border-[#29231F] capitalize transition-colors"
+                className="text-xs border border-sand px-3 py-1.5 rounded-sm text-espresso/60 hover:border-espresso capitalize transition-colors"
               >
                 {POLICY_PLACEHOLDERS[s].title}
               </a>

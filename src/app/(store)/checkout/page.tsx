@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart";
 import { formatPrice, isValidPincode } from "@/lib/utils";
+import { CartThumb } from "@/components/cart/cart-thumb";
 
 // ─── Indian States & UTs ─────────────────────────────────────────────────────
 const INDIAN_STATES = [
@@ -99,28 +100,26 @@ function OrderSummary({
   const finalTotal = subtotalInPaise - discountInPaise + (shippingInPaise ?? 0);
 
   return (
-    <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-6 lg:sticky lg:top-8">
-      <h2 className="font-serif text-lg text-[#29231F] mb-4">Order Summary</h2>
+    <div className="bg-cream border border-sand rounded-sm p-6 lg:sticky lg:top-8">
+      <h2 className="font-serif text-lg text-espresso mb-4">Order Summary</h2>
 
       {/* Items */}
       <div className="space-y-3 mb-5 max-h-48 overflow-y-auto pr-1">
         {items.map((item) => (
           <div key={item.id} className="flex gap-3 items-center">
-            <div className="w-10 h-10 bg-[#E4D5C2] rounded-sm flex-shrink-0 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={item.imageUrl}
-                alt={item.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+            <CartThumb
+              imageUrl={item.imageUrl}
+              name={item.name}
+              slug={item.slug}
+              className="w-10 h-10"
+            />
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-[#29231F] truncate font-medium">
+              <p className="text-xs text-espresso truncate font-medium">
                 {item.name}
               </p>
-              <p className="text-xs text-[#29231F]/50">Qty: {item.quantity}</p>
+              <p className="text-xs text-espresso/50">Qty: {item.quantity}</p>
             </div>
-            <p className="text-xs text-[#29231F] flex-shrink-0">
+            <p className="text-xs text-espresso flex-shrink-0">
               {formatPrice(item.priceInPaise * item.quantity)}
             </p>
           </div>
@@ -130,9 +129,9 @@ function OrderSummary({
       {/* Coupon field */}
       <div className="mb-4">
         {couponCode ? (
-          <div className="flex items-center justify-between bg-[#C7A56A]/10 border border-[#C7A56A]/30 rounded-sm px-3 py-2">
-            <span className="text-xs text-[#29231F]">
-              <strong className="text-[#C7A56A]">{couponCode}</strong> applied
+          <div className="flex items-center justify-between bg-gold/10 border border-gold/30 rounded-sm px-3 py-2">
+            <span className="text-xs text-espresso">
+              <strong className="text-gold">{couponCode}</strong> applied
             </span>
           </div>
         ) : (
@@ -162,18 +161,18 @@ function OrderSummary({
       </div>
 
       {/* Amounts */}
-      <div className="space-y-2 text-sm border-t border-[#E4D5C2] pt-4">
-        <div className="flex justify-between text-[#29231F]/70">
+      <div className="space-y-2 text-sm border-t border-sand pt-4">
+        <div className="flex justify-between text-espresso/70">
           <span>Subtotal</span>
           <span>{formatPrice(subtotalInPaise)}</span>
         </div>
         {discountInPaise > 0 && (
-          <div className="flex justify-between text-[#C7A56A]">
+          <div className="flex justify-between text-gold">
             <span>Discount</span>
             <span>−{formatPrice(discountInPaise)}</span>
           </div>
         )}
-        <div className="flex justify-between text-[#29231F]/70">
+        <div className="flex justify-between text-espresso/70">
           <span>Shipping</span>
           <span>
             {shippingInPaise === null
@@ -183,11 +182,11 @@ function OrderSummary({
               : formatPrice(shippingInPaise)}
           </span>
         </div>
-        <div className="flex justify-between font-semibold text-[#29231F] text-base pt-2 border-t border-[#E4D5C2]">
+        <div className="flex justify-between font-semibold text-espresso text-base pt-2 border-t border-sand">
           <span>Total</span>
           <span>{formatPrice(finalTotal)}</span>
         </div>
-        <p className="text-xs text-[#29231F]/40">Inclusive of all taxes</p>
+        <p className="text-xs text-espresso/40">Inclusive of all taxes</p>
       </div>
     </div>
   );
@@ -433,8 +432,8 @@ export default function CheckoutPage() {
   // ── Empty cart guard ──
   if (items.length === 0) {
     return (
-      <div className="bg-[#F7F2E9] min-h-screen flex flex-col items-center justify-center py-24">
-        <p className="font-serif text-3xl text-[#29231F]/40 mb-4">
+      <div className="bg-ivory min-h-screen flex flex-col items-center justify-center py-24">
+        <p className="font-serif text-3xl text-espresso/40 mb-4">
           Your bag is empty.
         </p>
         <Link href="/shop" className="btn btn-primary">
@@ -447,60 +446,60 @@ export default function CheckoutPage() {
   return (
     <>
       {/* Checkout-specific header (wordmark only, no full nav) */}
-      <header className="bg-[#F7F2E9] border-b border-[#E4D5C2] py-4">
+      <header className="bg-ivory border-b border-sand py-4">
         <div className="container-refora flex items-center justify-between">
           <Link
             href="/"
-            className="font-serif text-2xl text-[#29231F] tracking-[0.12em]"
+            className="font-serif text-2xl text-espresso tracking-[0.12em]"
             aria-label="REFORA — return to home"
           >
             REFORA
           </Link>
           <Link
             href="/cart"
-            className="text-xs text-[#29231F]/50 hover:text-[#29231F] transition-colors"
+            className="text-xs text-espresso/50 hover:text-espresso transition-colors"
           >
             ← Back to bag
           </Link>
         </div>
       </header>
 
-      <div className="bg-[#F7F2E9] min-h-screen py-10">
+      <div className="bg-ivory min-h-screen py-10">
         <div className="container-refora">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
             {/* LEFT — Steps (2/3) */}
             <div className="lg:col-span-2">
-              <h1 className="font-serif text-3xl text-[#29231F] mb-8">
+              <h1 className="font-serif text-3xl text-espresso mb-8">
                 Checkout
               </h1>
 
               {/* ── Step 1: Contact ── */}
-              <div className="mb-4 border border-[#E4D5C2] rounded-sm overflow-hidden">
+              <div className="mb-4 border border-sand rounded-sm overflow-hidden">
                 <button
-                  className="w-full flex items-center gap-4 px-6 py-4 bg-[#EFE5D5] text-left"
+                  className="w-full flex items-center gap-4 px-6 py-4 bg-cream text-left"
                   onClick={() => step !== 1 && goToStep(1)}
                 >
                   <span
                     className={`w-6 h-6 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-medium ${
                       isStepComplete(1)
-                        ? "bg-[#29231F] border-[#29231F] text-[#FFFDFC]"
-                        : "border-[#29231F] text-[#29231F]"
+                        ? "bg-espresso border-espresso text-soft-white"
+                        : "border-espresso text-espresso"
                     }`}
                   >
                     {isStepComplete(1) ? "✓" : "1"}
                   </span>
-                  <span className="font-medium text-sm text-[#29231F]">
+                  <span className="font-medium text-sm text-espresso">
                     Contact Details
                   </span>
                   {isStepComplete(1) && (
-                    <span className="ml-auto text-xs text-[#29231F]/50">
+                    <span className="ml-auto text-xs text-espresso/50">
                       {contact.email}
                     </span>
                   )}
                 </button>
 
                 {step === 1 && (
-                  <div className="px-6 py-6 bg-[#F7F2E9] flex flex-col gap-4">
+                  <div className="px-6 py-6 bg-ivory flex flex-col gap-4">
                     {/* Guest / Account choice */}
                     <div className="flex gap-4 mb-2">
                       <label className="flex items-center gap-2 cursor-pointer">
@@ -511,9 +510,9 @@ export default function CheckoutPage() {
                           onChange={() =>
                             setContact((c) => ({ ...c, isGuest: true }))
                           }
-                          className="accent-[#29231F]"
+                          className="accent-espresso"
                         />
-                        <span className="text-sm text-[#29231F]">
+                        <span className="text-sm text-espresso">
                           Guest checkout
                         </span>
                       </label>
@@ -525,15 +524,15 @@ export default function CheckoutPage() {
                           onChange={() =>
                             setContact((c) => ({ ...c, isGuest: false }))
                           }
-                          className="accent-[#29231F]"
+                          className="accent-espresso"
                         />
-                        <span className="text-sm text-[#29231F]">
+                        <span className="text-sm text-espresso">
                           Sign in / Create account
                         </span>
                       </label>
                     </div>
                     {!contact.isGuest && (
-                      <p className="text-xs text-[#29231F]/50 bg-[#EFE5D5] rounded-sm px-3 py-2 border border-[#E4D5C2]">
+                      <p className="text-xs text-espresso/50 bg-cream rounded-sm px-3 py-2 border border-sand">
                         Account features are coming soon. Please use guest
                         checkout for now.
                       </p>
@@ -542,7 +541,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="checkout-email"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Email *
                       </label>
@@ -567,12 +566,12 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="checkout-phone"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Mobile Number *
                       </label>
                       <div className="flex gap-2">
-                        <span className="input-refora w-14 flex-shrink-0 flex items-center justify-center text-sm text-[#29231F]/60 pointer-events-none select-none">
+                        <span className="input-refora w-14 flex-shrink-0 flex items-center justify-center text-sm text-espresso/60 pointer-events-none select-none">
                           +91
                         </span>
                         <input
@@ -609,42 +608,42 @@ export default function CheckoutPage() {
               </div>
 
               {/* ── Step 2: Delivery Address ── */}
-              <div className="mb-4 border border-[#E4D5C2] rounded-sm overflow-hidden">
+              <div className="mb-4 border border-sand rounded-sm overflow-hidden">
                 <button
-                  className="w-full flex items-center gap-4 px-6 py-4 bg-[#EFE5D5] text-left"
+                  className="w-full flex items-center gap-4 px-6 py-4 bg-cream text-left"
                   onClick={() => step >= 2 && goToStep(2)}
                   disabled={step < 2}
                 >
                   <span
                     className={`w-6 h-6 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-medium ${
                       isStepComplete(2)
-                        ? "bg-[#29231F] border-[#29231F] text-[#FFFDFC]"
+                        ? "bg-espresso border-espresso text-soft-white"
                         : step === 2
-                        ? "border-[#29231F] text-[#29231F]"
-                        : "border-[#E4D5C2] text-[#29231F]/30"
+                        ? "border-espresso text-espresso"
+                        : "border-sand text-espresso/30"
                     }`}
                   >
                     {isStepComplete(2) ? "✓" : "2"}
                   </span>
                   <span
-                    className={`font-medium text-sm ${step >= 2 ? "text-[#29231F]" : "text-[#29231F]/40"}`}
+                    className={`font-medium text-sm ${step >= 2 ? "text-espresso" : "text-espresso/40"}`}
                   >
                     Delivery Address
                   </span>
                   {isStepComplete(2) && (
-                    <span className="ml-auto text-xs text-[#29231F]/50 truncate max-w-[160px]">
+                    <span className="ml-auto text-xs text-espresso/50 truncate max-w-[160px]">
                       {address.city}, {address.state}
                     </span>
                   )}
                 </button>
 
                 {step === 2 && (
-                  <div className="px-6 py-6 bg-[#F7F2E9] grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="px-6 py-6 bg-ivory grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Full name — full width */}
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="addr-name"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Full Name *
                       </label>
@@ -670,7 +669,7 @@ export default function CheckoutPage() {
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="addr-line1"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Address Line 1 *
                       </label>
@@ -696,10 +695,10 @@ export default function CheckoutPage() {
                     <div className="sm:col-span-2">
                       <label
                         htmlFor="addr-line2"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Address Line 2{" "}
-                        <span className="text-[#29231F]/30">(optional)</span>
+                        <span className="text-espresso/30">(optional)</span>
                       </label>
                       <input
                         id="addr-line2"
@@ -718,7 +717,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="addr-city"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         City *
                       </label>
@@ -744,7 +743,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="addr-pincode"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Pincode *
                       </label>
@@ -765,7 +764,7 @@ export default function CheckoutPage() {
                         className={`input-refora ${addressErrors.pincode ? "border-red-400" : ""}`}
                       />
                       {pincodeLoading && (
-                        <p className="text-xs text-[#29231F]/40 mt-1">
+                        <p className="text-xs text-espresso/40 mt-1">
                           Checking…
                         </p>
                       )}
@@ -790,7 +789,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="addr-state"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         State *
                       </label>
@@ -821,7 +820,7 @@ export default function CheckoutPage() {
                     <div>
                       <label
                         htmlFor="addr-country"
-                        className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                        className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                       >
                         Country
                       </label>
@@ -830,7 +829,7 @@ export default function CheckoutPage() {
                         type="text"
                         value="India"
                         readOnly
-                        className="input-refora bg-[#E4D5C2]/50 text-[#29231F]/50 cursor-default"
+                        className="input-refora bg-sand/50 text-espresso/50 cursor-default"
                       />
                     </div>
 
@@ -854,39 +853,39 @@ export default function CheckoutPage() {
               </div>
 
               {/* ── Step 3: Shipping Method ── */}
-              <div className="mb-4 border border-[#E4D5C2] rounded-sm overflow-hidden">
+              <div className="mb-4 border border-sand rounded-sm overflow-hidden">
                 <button
-                  className="w-full flex items-center gap-4 px-6 py-4 bg-[#EFE5D5] text-left"
+                  className="w-full flex items-center gap-4 px-6 py-4 bg-cream text-left"
                   onClick={() => step >= 3 && goToStep(3)}
                   disabled={step < 3}
                 >
                   <span
                     className={`w-6 h-6 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-medium ${
                       isStepComplete(3)
-                        ? "bg-[#29231F] border-[#29231F] text-[#FFFDFC]"
+                        ? "bg-espresso border-espresso text-soft-white"
                         : step === 3
-                        ? "border-[#29231F] text-[#29231F]"
-                        : "border-[#E4D5C2] text-[#29231F]/30"
+                        ? "border-espresso text-espresso"
+                        : "border-sand text-espresso/30"
                     }`}
                   >
                     {isStepComplete(3) ? "✓" : "3"}
                   </span>
                   <span
-                    className={`font-medium text-sm ${step >= 3 ? "text-[#29231F]" : "text-[#29231F]/40"}`}
+                    className={`font-medium text-sm ${step >= 3 ? "text-espresso" : "text-espresso/40"}`}
                   >
                     Delivery Method
                   </span>
                   {isStepComplete(3) && selectedRate && (
-                    <span className="ml-auto text-xs text-[#29231F]/50">
+                    <span className="ml-auto text-xs text-espresso/50">
                       {selectedRate.name}
                     </span>
                   )}
                 </button>
 
                 {step === 3 && (
-                  <div className="px-6 py-6 bg-[#F7F2E9]">
+                  <div className="px-6 py-6 bg-ivory">
                     {ratesLoading ? (
-                      <p className="text-sm text-[#29231F]/50">
+                      <p className="text-sm text-espresso/50">
                         Fetching delivery options…
                       </p>
                     ) : (
@@ -896,8 +895,8 @@ export default function CheckoutPage() {
                             key={i}
                             className={`flex items-center gap-4 border rounded-sm px-4 py-3 cursor-pointer transition-colors ${
                               selectedRate?.name === rate.name
-                                ? "border-[#29231F] bg-[#EFE5D5]"
-                                : "border-[#E4D5C2] hover:border-[#29231F]/40"
+                                ? "border-espresso bg-cream"
+                                : "border-sand hover:border-espresso/40"
                             }`}
                           >
                             <input
@@ -905,17 +904,17 @@ export default function CheckoutPage() {
                               name="shipping-rate"
                               checked={selectedRate?.name === rate.name}
                               onChange={() => setSelectedRate(rate)}
-                              className="accent-[#29231F]"
+                              className="accent-espresso"
                             />
                             <div className="flex-1">
-                              <p className="text-sm font-medium text-[#29231F]">
+                              <p className="text-sm font-medium text-espresso">
                                 {rate.name}
                               </p>
-                              <p className="text-xs text-[#29231F]/50">
+                              <p className="text-xs text-espresso/50">
                                 Estimated {rate.estimatedDays} business days
                               </p>
                             </div>
-                            <span className="text-sm font-medium text-[#29231F]">
+                            <span className="text-sm font-medium text-espresso">
                               {rate.isFree || rate.priceInPaise === 0
                                 ? "Free"
                                 : formatPrice(rate.priceInPaise)}
@@ -944,33 +943,33 @@ export default function CheckoutPage() {
               </div>
 
               {/* ── Step 4: Payment ── */}
-              <div className="mb-4 border border-[#E4D5C2] rounded-sm overflow-hidden">
+              <div className="mb-4 border border-sand rounded-sm overflow-hidden">
                 <button
-                  className="w-full flex items-center gap-4 px-6 py-4 bg-[#EFE5D5] text-left"
+                  className="w-full flex items-center gap-4 px-6 py-4 bg-cream text-left"
                   onClick={() => step >= 4 && goToStep(4)}
                   disabled={step < 4}
                 >
                   <span
                     className={`w-6 h-6 rounded-full border flex-shrink-0 flex items-center justify-center text-xs font-medium ${
                       step === 4
-                        ? "border-[#29231F] text-[#29231F]"
-                        : "border-[#E4D5C2] text-[#29231F]/30"
+                        ? "border-espresso text-espresso"
+                        : "border-sand text-espresso/30"
                     }`}
                   >
                     4
                   </span>
                   <span
-                    className={`font-medium text-sm ${step >= 4 ? "text-[#29231F]" : "text-[#29231F]/40"}`}
+                    className={`font-medium text-sm ${step >= 4 ? "text-espresso" : "text-espresso/40"}`}
                   >
                     Payment
                   </span>
                 </button>
 
                 {step === 4 && (
-                  <div className="px-6 py-6 bg-[#F7F2E9] flex flex-col gap-4">
+                  <div className="px-6 py-6 bg-ivory flex flex-col gap-4">
                     {/* Final total */}
-                    <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm px-4 py-3">
-                      <div className="flex justify-between text-sm font-semibold text-[#29231F]">
+                    <div className="bg-cream border border-sand rounded-sm px-4 py-3">
+                      <div className="flex justify-between text-sm font-semibold text-espresso">
                         <span>Total to pay</span>
                         <span>
                           {formatPrice(
@@ -998,12 +997,12 @@ export default function CheckoutPage() {
                     </button>
 
                     {/* COD option placeholder */}
-                    <div className="border border-[#E4D5C2] rounded-sm px-4 py-3 flex items-center justify-between gap-4">
+                    <div className="border border-sand rounded-sm px-4 py-3 flex items-center justify-between gap-4">
                       <div>
-                        <p className="text-sm font-medium text-[#29231F]">
+                        <p className="text-sm font-medium text-espresso">
                           Cash on Delivery
                         </p>
-                        <p className="text-xs text-[#29231F]/50">
+                        <p className="text-xs text-espresso/50">
                           Available on select pincodes
                         </p>
                       </div>
@@ -1012,7 +1011,7 @@ export default function CheckoutPage() {
                       </button>
                     </div>
 
-                    <p className="text-xs text-[#29231F]/40">
+                    <p className="text-xs text-espresso/40">
                       Payments secured by Razorpay. Your card details are never
                       stored on REFORA servers.
                     </p>

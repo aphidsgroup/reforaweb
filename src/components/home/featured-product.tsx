@@ -1,163 +1,202 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Check, ArrowRight, Truck, ShieldCheck } from "lucide-react";
 import { useCartStore } from "@/store/cart";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, cn } from "@/lib/utils";
+import { ProductVisual, BrandIcon } from "@/components/ui/brand-art";
+import { Reveal } from "@/components/ui/reveal";
+import { COCOCREME, LAUNCH_OFFER } from "@/lib/catalog";
 
-// ─── PROVISIONAL data — replace with DB-driven content ────────────────────────
-// CLIENT INPUT NEEDED: confirmed price, MRP, SKU, final product details
-const PRODUCT = {
-  id: "cococreme-100g",
-  productId: "00000000-0000-0000-0000-000000000001",
-  name: "COCOCRÈME",
-  subtitle: "Coconut Milk Soap with Colloidal Oatmeal",
-  slug: "cococreme",
-  priceInPaise: 0, // ← AWAITING CLIENT: replace with actual price in paise (e.g. 39900 = ₹399)
-  mrpInPaise: 0,   // ← AWAITING CLIENT: replace with MRP
-  size: "100g / 3.52 oz",
-  imageUrl: "/placeholder-product.jpg",
-  variantName: "100g",
-};
+const VIEWS = [
+  { kind: "carton", label: "Carton", tone: "glow" },
+  { kind: "soap", label: "The bar", tone: "warm" },
+] as const;
 
 export function FeaturedProduct() {
   const [quantity, setQuantity] = useState(1);
-  const { addItem } = useCartStore();
+  const [view, setView] = useState(0);
+  const [added, setAdded] = useState(false);
+  const addItem = useCartStore((s) => s.addItem);
 
-  const handleAddToBag = () => {
+  const product = COCOCREME;
+  const saving = product.mrpInPaise - product.priceInPaise;
+  const savingPct = product.mrpInPaise > 0 ? Math.round((saving / product.mrpInPaise) * 100) : 0;
+
+  const handleAdd = () => {
     addItem({
-      id: PRODUCT.id,
-      productId: PRODUCT.productId,
-      name: PRODUCT.name,
-      variantName: PRODUCT.variantName,
-      slug: PRODUCT.slug,
-      imageUrl: PRODUCT.imageUrl,
-      priceInPaise: PRODUCT.priceInPaise,
+      id: product.id,
+      productId: product.productId,
+      name: product.name,
+      variantName: product.variantName,
+      slug: product.slug,
+      imageUrl: product.imageUrl,
+      priceInPaise: product.priceInPaise,
       quantity,
     });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 2200);
   };
 
   return (
-    <section className="section bg-[#F7F2E9]" aria-label="Featured product">
+    <section className="section bg-ivory" aria-label={`${product.name} — buy`}>
       <div className="container-refora">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Product image */}
-          <div className="relative aspect-square bg-[#EFE5D5] rounded-sm overflow-hidden">
-            {/* PLACEHOLDER — replace with Cloudinary-hosted product photography */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-[#29231F]/25">
-              <div className="font-serif text-6xl tracking-widest">REFORA</div>
-              <div className="font-serif text-2xl mt-2">COCOCRÈME</div>
-              <div className="text-xs mt-3 tracking-widest">
-                Coconut Milk Soap · 100g
-              </div>
-              <div className="text-xs mt-1 opacity-60">
-                [Product photography needed]
-              </div>
-            </div>
-          </div>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+          {/* ── Gallery ────────────────────────────────────────────────── */}
+          <Reveal className="lg:sticky lg:top-28">
+            <ProductVisual
+              kind={VIEWS[view].kind}
+              tone={VIEWS[view].tone}
+              alt={`${product.name} — ${VIEWS[view].label}`}
+              label={product.name}
+              sublabel="Coconut Milk Soap"
+              src={product.imageUrl}
+              sizes="(min-width: 1024px) 48vw, 100vw"
+              className="aspect-square w-full rounded-sm shadow-[var(--shadow-lifted)]"
+            />
 
-          {/* Purchase panel */}
-          <div className="max-w-sm">
-            {/* Category pill */}
-            <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
-              Skincare · Launch Product
-            </p>
-
-            {/* Product name */}
-            <h2 className="font-serif text-4xl md:text-5xl font-light leading-tight text-[#29231F] mb-1">
-              COCOCRÈME
-            </h2>
-            <p className="text-sm text-[#29231F]/70 mb-4">
-              {PRODUCT.subtitle}
-            </p>
-
-            {/* Gold rule */}
-            <span className="gold-rule mb-5 block" />
-
-            {/* Price */}
-            <div className="flex items-baseline gap-3 mb-6">
-              {PRODUCT.priceInPaise > 0 ? (
-                <>
-                  <span className="font-medium text-2xl">
-                    {formatPrice(PRODUCT.priceInPaise)}
-                  </span>
-                  {PRODUCT.mrpInPaise > PRODUCT.priceInPaise && (
-                    <span className="text-sm text-[#29231F]/50 line-through">
-                      {formatPrice(PRODUCT.mrpInPaise)}
-                    </span>
+            {/* View switcher */}
+            <div className="flex gap-3 mt-4" role="group" aria-label="Product views">
+              {VIEWS.map((v, i) => (
+                <button
+                  key={v.kind}
+                  onClick={() => setView(i)}
+                  aria-pressed={view === i}
+                  aria-label={`Show ${v.label}`}
+                  className={cn(
+                    "relative w-20 h-20 rounded-sm overflow-hidden border transition-all duration-300",
+                    view === i
+                      ? "border-espresso shadow-[var(--shadow-soft)]"
+                      : "border-sand opacity-65 hover:opacity-100"
                   )}
-                </>
-              ) : (
-                <span className="text-sm text-[#29231F]/50 italic">
-                  Price coming soon
-                </span>
-              )}
-              <span className="text-xs text-[#29231F]/50">{PRODUCT.size}</span>
+                >
+                  <ProductVisual
+                    kind={v.kind}
+                    tone={v.tone}
+                    alt=""
+                    label={product.name}
+                    src={product.imageUrl}
+                    className="absolute inset-0"
+                  />
+                </button>
+              ))}
             </div>
+          </Reveal>
 
-            {/* Quantity */}
-            <div className="flex items-center gap-4 mb-6">
-              <span className="text-sm text-[#29231F]/70">Quantity</span>
-              <div className="qty-stepper">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  aria-label="Decrease quantity"
-                >
-                  <Minus size={12} />
+          {/* ── Buy panel ──────────────────────────────────────────────── */}
+          <Reveal delay={100}>
+            <div className="max-w-md">
+              <p className="eyebrow mb-3">
+                {product.category} · {product.badge}
+              </p>
+
+              <h2 className="font-serif font-light leading-[1.05] text-espresso mb-2" style={{ fontSize: "var(--text-headline)" }}>
+                {product.name}
+              </h2>
+              <p className="text-sm md:text-base text-espresso/65 mb-5">{product.subtitle}</p>
+
+              <span className="gold-rule mb-6" />
+
+              {/* Price */}
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                <span className="font-serif text-3xl text-espresso tnum">
+                  {formatPrice(product.priceInPaise)}
+                </span>
+                {saving > 0 && (
+                  <>
+                    <span className="text-sm text-espresso/45 line-through tnum">
+                      {formatPrice(product.mrpInPaise)}
+                    </span>
+                    <span className="pill pill-gold">Save {savingPct}%</span>
+                  </>
+                )}
+              </div>
+              <p className="text-xs text-espresso/50 mb-6 tnum">
+                {product.size} · Inclusive of all taxes
+              </p>
+
+              {/* Launch offer — stated as an invitation, not a shout */}
+              {LAUNCH_OFFER.enabled && (
+                <div className="border border-gold/45 bg-gold/[0.07] rounded-sm px-5 py-4 mb-7">
+                  <p className="eyebrow text-gold mb-1.5">{LAUNCH_OFFER.label}</p>
+                  <p className="font-serif text-lg text-espresso leading-snug">
+                    {LAUNCH_OFFER.headline}
+                  </p>
+                  <p className="text-sm text-espresso/70 mt-1">
+                    {LAUNCH_OFFER.detail} with code{" "}
+                    <span className="font-medium tracking-[0.12em] text-espresso">
+                      {LAUNCH_OFFER.code}
+                    </span>
+                  </p>
+                </div>
+              )}
+
+              {/* Quantity + add */}
+              <div className="flex items-center gap-4 mb-4">
+                <span className="label-refora mb-0">Quantity</span>
+                <div className="qty-stepper">
+                  <button
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    disabled={quantity <= 1}
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus size={13} strokeWidth={1.5} />
+                  </button>
+                  <span aria-live="polite">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+                    disabled={quantity >= 10}
+                    aria-label="Increase quantity"
+                  >
+                    <Plus size={13} strokeWidth={1.5} />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 mb-6">
+                <button onClick={handleAdd} className="btn btn-primary btn-lg btn-block">
+                  {added ? (
+                    <>
+                      <Check size={15} strokeWidth={2} aria-hidden="true" />
+                      <span>Added to bag</span>
+                    </>
+                  ) : (
+                    <span>Add to bag — {formatPrice(product.priceInPaise * quantity)}</span>
+                  )}
                 </button>
-                <span>{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  aria-label="Increase quantity"
-                >
-                  <Plus size={12} />
-                </button>
+                <Link href={`/products/${product.slug}`} className="btn btn-secondary btn-block">
+                  <span>Full product details</span>
+                  <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
+                </Link>
+              </div>
+
+              {/* Benefits — the three claims confirmed on the brand board */}
+              <ul className="space-y-3 mb-7">
+                {product.benefits.map((b) => (
+                  <li key={b.title} className="flex gap-3">
+                    <BrandIcon name={b.icon} className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-espresso">{b.title}</p>
+                      <p className="text-sm text-espresso/60 leading-relaxed">{b.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Delivery assurances */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-5 border-t border-sand text-xs text-espresso/60">
+                <span className="inline-flex items-center gap-2">
+                  <Truck size={14} strokeWidth={1.4} className="text-clay" aria-hidden="true" />
+                  Free shipping over ₹599
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <ShieldCheck size={14} strokeWidth={1.4} className="text-clay" aria-hidden="true" />
+                  Secure UPI, cards & COD
+                </span>
               </div>
             </div>
-
-            {/* Actions */}
-            <div className="flex flex-col gap-3 mb-6">
-              <button
-                onClick={handleAddToBag}
-                className="btn btn-primary w-full"
-                disabled={PRODUCT.priceInPaise === 0}
-              >
-                {PRODUCT.priceInPaise > 0 ? "Add to Bag" : "Price Coming Soon"}
-              </button>
-              <Link
-                href={`/products/${PRODUCT.slug}`}
-                className="btn btn-secondary w-full text-center"
-              >
-                View Product
-              </Link>
-            </div>
-
-            {/* Confirmed claims from brand board */}
-            <ul className="space-y-2 text-sm text-[#29231F]/70">
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#C7A56A] flex-shrink-0" />
-                Gentle Cleanses
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#C7A56A] flex-shrink-0" />
-                Nourishes
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#C7A56A] flex-shrink-0" />
-                Leaves Skin Soft
-              </li>
-            </ul>
-
-            {/* View full product */}
-            <Link
-              href={`/products/${PRODUCT.slug}`}
-              className="btn-ghost mt-6 inline-flex items-center gap-1 text-sm"
-            >
-              Full product details →
-            </Link>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

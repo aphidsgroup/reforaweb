@@ -35,17 +35,17 @@ export default async function JournalIndexPage() {
   const posts = await fetchPosts();
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
+    <div className="bg-ivory min-h-screen">
       {/* Header */}
-      <div className="bg-[#EFE5D5] py-16 text-center border-b border-[#E4D5C2]">
+      <div className="bg-cream py-16 text-center border-b border-sand">
         <div className="container-refora">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
+          <p className="text-xs tracking-[0.14em] text-gold uppercase mb-3">
             Stories
           </p>
-          <h1 className="font-serif text-5xl lg:text-6xl font-light text-[#29231F]">
+          <h1 className="font-serif text-5xl lg:text-6xl font-light text-espresso">
             Journal
           </h1>
-          <p className="mt-4 text-sm text-[#29231F]/60 max-w-md mx-auto">
+          <p className="mt-4 text-sm text-espresso/60 max-w-md mx-auto">
             Thoughts on ingredients, rituals, and the considered everyday.
           </p>
         </div>
@@ -63,7 +63,7 @@ export default async function JournalIndexPage() {
               >
                 {/* Cover image */}
                 {post.coverImageUrl && (
-                  <div className="relative aspect-[16/9] bg-[#EFE5D5] rounded-sm overflow-hidden mb-4">
+                  <div className="relative aspect-[16/9] bg-cream rounded-sm overflow-hidden mb-4">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={post.coverImageUrl}
@@ -79,7 +79,7 @@ export default async function JournalIndexPage() {
                     {(post.tags as string[]).map((tag) => (
                       <span
                         key={tag}
-                        className="text-[10px] tracking-widest text-[#C7A56A] uppercase"
+                        className="text-[10px] tracking-widest text-gold uppercase"
                       >
                         {tag}
                       </span>
@@ -87,13 +87,13 @@ export default async function JournalIndexPage() {
                   </div>
                 )}
 
-                <h2 className="font-serif text-xl text-[#29231F] mb-2 group-hover:text-[#C7A56A] transition-colors leading-snug">
+                <h2 className="font-serif text-xl text-espresso mb-2 group-hover:text-gold transition-colors leading-snug">
                   {post.title}
                 </h2>
-                <p className="text-sm text-[#29231F]/60 leading-relaxed line-clamp-3 mb-3">
+                <p className="text-sm text-espresso/60 leading-relaxed line-clamp-3 mb-3">
                   {post.excerpt}
                 </p>
-                <p className="text-xs text-[#29231F]/40">
+                <p className="text-xs text-espresso/40">
                   {new Date(post.publishedAt).toLocaleDateString("en-IN", {
                     year: "numeric",
                     month: "long",
@@ -106,10 +106,10 @@ export default async function JournalIndexPage() {
         ) : (
           /* Honest empty state */
           <div className="text-center py-20">
-            <p className="font-serif text-4xl text-[#29231F]/30 mb-4">
+            <p className="font-serif text-4xl text-espresso/30 mb-4">
               Articles coming soon.
             </p>
-            <p className="text-sm text-[#29231F]/50 max-w-sm mx-auto">
+            <p className="text-sm text-espresso/50 max-w-sm mx-auto">
               We&apos;re writing about ingredients, rituals, and why simplicity
               matters. Check back soon.
             </p>

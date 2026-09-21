@@ -1,68 +1,101 @@
-"use client";
-
 import Link from "next/link";
+import { ArrowRight, Star } from "lucide-react";
+import { ProductVisual } from "@/components/ui/brand-art";
+import { Reveal } from "@/components/ui/reveal";
+import { COCOCREME } from "@/lib/catalog";
 
+/**
+ * Editorial split hero — type on the left, product study on the right.
+ * On mobile the product sits above the copy so the first thing seen is
+ * the thing being sold.
+ */
 export function HeroSection() {
   return (
-    <section
-      className="relative min-h-[90vh] md:min-h-screen flex items-center bg-[#EFE5D5] overflow-hidden"
-      aria-label="Featured product hero"
-    >
-      {/* Background image placeholder */}
-      <div className="absolute inset-0 z-0">
-        <div className="w-full h-full bg-gradient-to-br from-[#EFE5D5] via-[#E4D5C2] to-[#EFE5D5]" />
-        {/* 
-          CLIENT ASSET NEEDED:
-          Replace with COCOCRÈME hero photography — soft directional light,
-          warm neutral surface, product + packaging in bathroom/wash-area context.
-          Recommended dimensions: 2880×1620px, WebP format.
-          <Image src="/hero-cocoCreme.jpg" alt="COCOCRÈME coconut milk soap" fill className="object-cover" priority />
-        */}
-      </div>
+    <section className="relative bg-cream overflow-hidden" aria-label="COCOCRÈME — featured">
+      <div className="container-refora">
+        <div className="grid lg:grid-cols-[1fr_1.05fr] gap-7 lg:gap-16 items-center lg:min-h-[calc(100svh-7rem)] py-8 md:py-12 lg:py-20">
+          {/* ── Copy ───────────────────────────────────────────────────── */}
+          <div className="order-2 lg:order-1 max-w-xl">
+            <Reveal>
+              <p className="tagline text-xs md:text-sm text-clay mb-5 md:mb-7">
+                Restore · Renew · Refora.
+              </p>
+            </Reveal>
 
-      <div className="container-refora relative z-10 py-24 md:py-0">
-        <div className="max-w-lg">
-          {/* Brand signature */}
-          <p className="text-xs tracking-[0.16em] text-[#C7A56A] uppercase mb-6">
-            Restore · Renew · Refora.
-          </p>
+            <Reveal delay={80}>
+              <h1
+                className="font-serif font-light leading-[0.98] text-espresso text-balance mb-6"
+                style={{ fontSize: "var(--text-display)" }}
+              >
+                Gentle care
+                <br />
+                for a brighter
+                <br />
+                <span className="italic text-clay">tomorrow.</span>
+              </h1>
+            </Reveal>
 
-          {/* Headline */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-[#29231F] mb-6">
-            Gentle care
-            <br />
-            for a brighter
-            <br />
-            tomorrow.
-          </h1>
+            <Reveal delay={160}>
+              <p className="text-base md:text-lg text-espresso/70 leading-relaxed max-w-md mb-8 text-pretty">
+                Meet {COCOCREME.name} — a coconut milk soap with colloidal oatmeal.
+                Gently cleanses, nourishes, and leaves skin soft.
+              </p>
+            </Reveal>
 
-          {/* Sub-line — only confirmed claims from brand board */}
-          <p className="text-base md:text-lg text-[#29231F]/75 leading-relaxed mb-8 max-w-sm">
-            Meet COCOCRÈME — a coconut milk soap with colloidal oatmeal.
-            Gently cleanses, nourishes, and leaves skin soft.
-          </p>
+            <Reveal delay={240}>
+              <div className="flex flex-col sm:flex-row gap-3 mb-9">
+                <Link href={`/products/${COCOCREME.slug}`} className="btn btn-primary btn-lg">
+                  <span>Shop {COCOCREME.name}</span>
+                  <ArrowRight size={15} strokeWidth={1.5} aria-hidden="true" />
+                </Link>
+                <Link href="/about" className="btn btn-secondary btn-lg">
+                  <span>Our story</span>
+                </Link>
+              </div>
+            </Reveal>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/products/cococreme" className="btn btn-primary">
-              Shop COCOCRÈME
-            </Link>
-            <Link href="/about" className="btn btn-secondary">
-              Our Story
-            </Link>
+            {/* Social proof — quiet, not shouted */}
+            <Reveal delay={320}>
+              <div className="flex items-center gap-4 pt-7 border-t border-sand/80">
+                <div className="flex items-center gap-1" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} size={13} className="fill-gold text-gold" strokeWidth={0} />
+                  ))}
+                </div>
+                <p className="text-xs md:text-sm text-espresso/65">
+                  <span className="tnum font-medium text-espresso">{COCOCREME.rating}</span> from{" "}
+                  <span className="tnum">{COCOCREME.reviewCount}</span> early reviews
+                </p>
+              </div>
+            </Reveal>
           </div>
-        </div>
-      </div>
 
-      {/* Product image — right side on desktop */}
-      <div className="hidden md:flex absolute right-0 top-0 h-full w-1/2 items-center justify-center p-16">
-        <div className="relative w-full max-w-md aspect-square bg-[#F7F2E9]/50 rounded-sm flex items-center justify-center">
-          {/* PLACEHOLDER — replace with actual product photography */}
-          <div className="text-center text-[#29231F]/30">
-            <div className="font-serif text-5xl tracking-widest mb-2">REFORA</div>
-            <div className="font-serif text-xl">COCOCRÈME</div>
-            <div className="text-xs mt-2 tracking-widest">100g · Product photography needed</div>
-          </div>
+          {/* ── Product study ──────────────────────────────────────────── */}
+          <Reveal delay={120} className="order-1 lg:order-2">
+            <div className="relative">
+              <ProductVisual
+                kind="carton"
+                tone="glow"
+                alt={`${COCOCREME.name} — ${COCOCREME.subtitle}`}
+                label={COCOCREME.name}
+                sublabel="Coconut Milk Soap"
+                src={COCOCREME.imageUrl}
+                priority
+                animate
+                sizes="(min-width: 1024px) 52vw, 100vw"
+                className="aspect-[16/11] sm:aspect-[5/4] lg:aspect-[4/5] w-full rounded-sm shadow-[var(--shadow-deep)]"
+              />
+
+              {/* Floating detail card — anchors scale and adds depth */}
+              <div className="hidden sm:block absolute -bottom-6 -left-4 lg:-left-8 bg-soft-white border border-sand rounded-sm px-5 py-4 shadow-[var(--shadow-lifted)] max-w-[220px]">
+                <p className="eyebrow mb-1.5">{COCOCREME.badge}</p>
+                <p className="font-serif text-lg leading-tight text-espresso">
+                  {COCOCREME.subtitle}
+                </p>
+                <p className="text-xs text-espresso/55 mt-1.5 tnum">{COCOCREME.size}</p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

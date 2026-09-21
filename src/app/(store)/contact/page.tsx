@@ -66,14 +66,14 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
+    <div className="bg-ivory min-h-screen">
       {/* Header */}
-      <div className="bg-[#EFE5D5] py-16 text-center border-b border-[#E4D5C2]">
+      <div className="bg-cream py-16 text-center border-b border-sand">
         <div className="container-refora">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
+          <p className="text-xs tracking-[0.14em] text-gold uppercase mb-3">
             Reach us
           </p>
-          <h1 className="font-serif text-5xl lg:text-6xl font-light text-[#29231F]">
+          <h1 className="font-serif text-5xl lg:text-6xl font-light text-espresso">
             Contact
           </h1>
         </div>
@@ -83,16 +83,16 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
           {/* Left — Form */}
           <div>
-            <h2 className="font-serif text-2xl text-[#29231F] mb-6">
+            <h2 className="font-serif text-2xl text-espresso mb-6">
               Send us a message
             </h2>
 
             {status === "success" ? (
-              <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-6">
-                <p className="text-sm text-[#29231F] font-medium mb-2">
+              <div className="bg-cream border border-sand rounded-sm p-6">
+                <p className="text-sm text-espresso font-medium mb-2">
                   Message received — thank you.
                 </p>
-                <p className="text-sm text-[#29231F]/60">
+                <p className="text-sm text-espresso/60">
                   We&apos;ll get back to you within 1–2 business days.
                 </p>
                 <button
@@ -107,7 +107,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                    className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                   >
                     Full Name <span aria-hidden="true">*</span>
                   </label>
@@ -127,7 +127,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                    className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                   >
                     Email <span aria-hidden="true">*</span>
                   </label>
@@ -147,10 +147,10 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="contact-phone"
-                    className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                    className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                   >
                     Phone{" "}
-                    <span className="text-[#29231F]/30">(optional)</span>
+                    <span className="text-espresso/30">(optional)</span>
                   </label>
                   <input
                     id="contact-phone"
@@ -167,7 +167,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="contact-message"
-                    className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                    className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                   >
                     Message <span aria-hidden="true">*</span>
                   </label>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                   {status === "loading" ? "Sending…" : "Send Message"}
                 </button>
 
-                <p className="text-xs text-[#29231F]/40">
+                <p className="text-xs text-espresso/40">
                   We typically respond within 1–2 business days.
                 </p>
               </form>
@@ -207,20 +207,20 @@ export default function ContactPage() {
           {/* Right — Contact details */}
           <div className="flex flex-col gap-8">
             <div>
-              <h2 className="font-serif text-2xl text-[#29231F] mb-6">
+              <h2 className="font-serif text-2xl text-espresso mb-6">
                 Other ways to reach us
               </h2>
             </div>
 
             {/* WhatsApp */}
-            <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-6">
+            <div className="bg-cream border border-sand rounded-sm p-6">
               <div className="flex items-start gap-4">
                 <span className="text-2xl" aria-hidden="true">
                   💬
                 </span>
                 <div>
-                  <p className="font-medium text-[#29231F] mb-1">WhatsApp</p>
-                  <p className="text-sm text-[#29231F]/60 mb-3">
+                  <p className="font-medium text-espresso mb-1">WhatsApp</p>
+                  <p className="text-sm text-espresso/60 mb-3">
                     Quick questions? Chat with us on WhatsApp — typically
                     available Mon–Sat, 10am–6pm IST.
                   </p>
@@ -247,23 +247,23 @@ export default function ContactPage() {
             </div>
 
             {/* Email */}
-            <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-6">
+            <div className="bg-cream border border-sand rounded-sm p-6">
               <div className="flex items-start gap-4">
                 <span className="text-2xl" aria-hidden="true">
                   ✉️
                 </span>
                 <div>
-                  <p className="font-medium text-[#29231F] mb-1">Email</p>
-                  <p className="text-sm text-[#29231F]/60 mb-2">
+                  <p className="font-medium text-espresso mb-1">Email</p>
+                  <p className="text-sm text-espresso/60 mb-2">
                     For general inquiries, orders, and feedback:
                   </p>
                   <a
                     href="mailto:hello@refora.in"
-                    className="text-sm text-[#29231F] underline hover:text-[#C7A56A] transition-colors"
+                    className="text-sm text-espresso underline hover:text-gold transition-colors"
                   >
                     hello@refora.in
                   </a>
-                  <p className="text-xs text-[#29231F]/40 mt-1">
+                  <p className="text-xs text-espresso/40 mt-1">
                     [PLACEHOLDER — confirm official email with client]
                   </p>
                 </div>
@@ -272,7 +272,7 @@ export default function ContactPage() {
 
             {/* Policies links */}
             <div>
-              <p className="text-xs text-[#29231F]/50 mb-3">
+              <p className="text-xs text-espresso/50 mb-3">
                 Looking for something specific?
               </p>
               <div className="flex flex-wrap gap-3">
@@ -284,7 +284,7 @@ export default function ContactPage() {
                   <Link
                     key={href}
                     href={href}
-                    className="text-xs border border-[#E4D5C2] px-3 py-1.5 rounded-sm text-[#29231F]/70 hover:border-[#29231F] transition-colors"
+                    className="text-xs border border-sand px-3 py-1.5 rounded-sm text-espresso/70 hover:border-espresso transition-colors"
                   >
                     {label}
                   </Link>

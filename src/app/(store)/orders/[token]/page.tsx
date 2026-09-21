@@ -69,7 +69,7 @@ const STATUS_CONFIG: Record<
     heading: "Payment Pending",
     message:
       "Your order is placed but payment is still being confirmed. If you completed payment, please wait a few minutes for confirmation. Contact us if this persists.",
-    color: "text-[#C7A56A]",
+    color: "text-gold",
   },
   failed: {
     icon: "✕",
@@ -83,7 +83,7 @@ const STATUS_CONFIG: Record<
     heading: "Order Cancelled",
     message:
       "This order has been cancelled. If you believe this is an error, please contact us.",
-    color: "text-[#29231F]/50",
+    color: "text-espresso/50",
   },
 };
 
@@ -99,12 +99,12 @@ export default async function OrderConfirmationPage({
   // Not found state
   if (!order) {
     return (
-      <div className="bg-[#F7F2E9] min-h-screen">
+      <div className="bg-ivory min-h-screen">
         <div className="container-refora max-w-lg mx-auto py-24 text-center">
-          <p className="font-serif text-4xl text-[#29231F]/30 mb-4">
+          <p className="font-serif text-4xl text-espresso/30 mb-4">
             Order not found.
           </p>
-          <p className="text-sm text-[#29231F]/50 mb-8">
+          <p className="text-sm text-espresso/50 mb-8">
             The order link may have expired or the token is invalid.
           </p>
           <Link href="/contact" className="btn btn-primary">
@@ -125,10 +125,10 @@ export default async function OrderConfirmationPage({
   };
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen py-12">
+    <div className="bg-ivory min-h-screen py-12">
       <div className="container-refora max-w-2xl mx-auto">
         {/* Status banner */}
-        <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-8 text-center mb-8">
+        <div className="bg-cream border border-sand rounded-sm p-8 text-center mb-8">
           <div
             className={`w-14 h-14 rounded-full border-2 flex items-center justify-center mx-auto mb-4 text-2xl font-light ${statusConfig.color} border-current`}
             aria-hidden="true"
@@ -140,10 +140,10 @@ export default async function OrderConfirmationPage({
           >
             {statusConfig.heading}
           </h1>
-          <p className="text-sm text-[#29231F]/60 leading-relaxed max-w-md mx-auto">
+          <p className="text-sm text-espresso/60 leading-relaxed max-w-md mx-auto">
             {statusConfig.message}
           </p>
-          <p className="text-xs text-[#29231F]/40 mt-3">
+          <p className="text-xs text-espresso/40 mt-3">
             Order #{order.orderNumber}
           </p>
         </div>
@@ -151,15 +151,15 @@ export default async function OrderConfirmationPage({
         {/* Order details grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
           {/* Items */}
-          <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-5">
-            <h2 className="font-medium text-sm text-[#29231F] mb-4 uppercase tracking-wide">
+          <div className="bg-cream border border-sand rounded-sm p-5">
+            <h2 className="font-medium text-sm text-espresso mb-4 uppercase tracking-wide">
               Items Ordered
             </h2>
             <div className="space-y-3">
               {order.lines.map((line, i) => (
                 <div key={i} className="flex gap-3 items-center">
                   {line.imageUrl && (
-                    <div className="w-10 h-10 bg-[#E4D5C2] rounded-sm flex-shrink-0 overflow-hidden">
+                    <div className="w-10 h-10 bg-sand rounded-sm flex-shrink-0 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={line.imageUrl}
@@ -169,19 +169,19 @@ export default async function OrderConfirmationPage({
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-[#29231F] truncate">
+                    <p className="text-sm text-espresso truncate">
                       {line.productName}
                     </p>
                     {line.variantName && (
-                      <p className="text-xs text-[#29231F]/50">
+                      <p className="text-xs text-espresso/50">
                         {line.variantName}
                       </p>
                     )}
-                    <p className="text-xs text-[#29231F]/50">
+                    <p className="text-xs text-espresso/50">
                       Qty: {line.quantity}
                     </p>
                   </div>
-                  <p className="text-sm text-[#29231F] flex-shrink-0">
+                  <p className="text-sm text-espresso flex-shrink-0">
                     {formatPrice(line.totalInPaise)}
                   </p>
                 </div>
@@ -190,12 +190,12 @@ export default async function OrderConfirmationPage({
           </div>
 
           {/* Delivery address */}
-          <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-5">
-            <h2 className="font-medium text-sm text-[#29231F] mb-4 uppercase tracking-wide">
+          <div className="bg-cream border border-sand rounded-sm p-5">
+            <h2 className="font-medium text-sm text-espresso mb-4 uppercase tracking-wide">
               Delivery Address
             </h2>
-            <address className="text-sm text-[#29231F]/70 not-italic leading-relaxed">
-              <strong className="text-[#29231F]">{order.shippingName}</strong>
+            <address className="text-sm text-espresso/70 not-italic leading-relaxed">
+              <strong className="text-espresso">{order.shippingName}</strong>
               <br />
               {order.shippingLine1}
               {order.shippingLine2 && (
@@ -214,12 +214,12 @@ export default async function OrderConfirmationPage({
           </div>
 
           {/* Payment details */}
-          <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-5">
-            <h2 className="font-medium text-sm text-[#29231F] mb-4 uppercase tracking-wide">
+          <div className="bg-cream border border-sand rounded-sm p-5">
+            <h2 className="font-medium text-sm text-espresso mb-4 uppercase tracking-wide">
               Payment
             </h2>
             <div className="space-y-1 text-sm">
-              <div className="flex justify-between text-[#29231F]/70">
+              <div className="flex justify-between text-espresso/70">
                 <span>Method</span>
                 <span>
                   {order.paymentMethod
@@ -228,7 +228,7 @@ export default async function OrderConfirmationPage({
                     : "—"}
                 </span>
               </div>
-              <div className="flex justify-between text-[#29231F]/70">
+              <div className="flex justify-between text-espresso/70">
                 <span>Status</span>
                 <span className="capitalize">
                   {order.paymentStatus.replace(/_/g, " ")}
@@ -238,22 +238,22 @@ export default async function OrderConfirmationPage({
           </div>
 
           {/* Order total */}
-          <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-5">
-            <h2 className="font-medium text-sm text-[#29231F] mb-4 uppercase tracking-wide">
+          <div className="bg-cream border border-sand rounded-sm p-5">
+            <h2 className="font-medium text-sm text-espresso mb-4 uppercase tracking-wide">
               Order Total
             </h2>
             <div className="space-y-1 text-sm">
-              <div className="flex justify-between text-[#29231F]/70">
+              <div className="flex justify-between text-espresso/70">
                 <span>Subtotal</span>
                 <span>{formatPrice(order.subtotalInPaise)}</span>
               </div>
               {order.discountInPaise > 0 && (
-                <div className="flex justify-between text-[#C7A56A]">
+                <div className="flex justify-between text-gold">
                   <span>Discount {order.couponCode && `(${order.couponCode})`}</span>
                   <span>−{formatPrice(order.discountInPaise)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-[#29231F]/70">
+              <div className="flex justify-between text-espresso/70">
                 <span>Shipping</span>
                 <span>
                   {order.shippingInPaise === 0
@@ -261,7 +261,7 @@ export default async function OrderConfirmationPage({
                     : formatPrice(order.shippingInPaise)}
                 </span>
               </div>
-              <div className="flex justify-between font-semibold text-[#29231F] text-base pt-2 border-t border-[#E4D5C2] mt-2">
+              <div className="flex justify-between font-semibold text-espresso text-base pt-2 border-t border-sand mt-2">
                 <span>Total</span>
                 <span>{formatPrice(order.totalInPaise)}</span>
               </div>

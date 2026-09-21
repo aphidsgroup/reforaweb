@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { db } from "@/db";
 import { products } from "@/db/schema";
+import { ALL_PRODUCTS } from "@/lib/catalog";
 import { eq } from "drizzle-orm";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://refora.in";
@@ -114,15 +115,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     }));
   } catch {
-    // DB not yet configured — include COCOCRÈME statically
-    productRoutes = [
-      {
-        url: `${BASE_URL}/products/cococreme`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.9,
-      },
-    ];
+    // DB not yet configured — fall back to the static catalog so every
+    // product page is still discoverable.
+    productRoutes = ALL_PRODUCTS.map((product) => ({
+      url: `${BASE_URL}/products/${product.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly" as const,
+      priority: product.inStock ? 0.9 : 0.6,
+    }));
   }
 
   // ── Dynamic journal routes ──

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { CartThumb } from "@/components/cart/cart-thumb";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { formatPrice } from "@/lib/utils";
@@ -40,7 +40,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
       {/* Backdrop */}
       <div
         className={cn(
-          "fixed inset-0 z-50 bg-[#29231F]/40 transition-opacity duration-300",
+          "fixed inset-0 z-50 bg-espresso/40 transition-opacity duration-300",
           open ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={onClose}
@@ -54,14 +54,14 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         aria-modal="true"
         aria-label="Shopping bag"
         className={cn(
-          "fixed right-0 top-0 h-full w-full max-w-md z-50 bg-[#F7F2E9] flex flex-col transition-transform duration-300 ease-out",
+          "fixed right-0 top-0 h-full w-full max-w-md z-50 bg-ivory flex flex-col transition-transform duration-300 ease-out",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#E4D5C2]">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-sand">
           <h2 className="font-serif text-xl tracking-wide">
-            Your Bag {itemCount > 0 && <span className="text-[#C7A56A]">({itemCount})</span>}
+            Your Bag {itemCount > 0 && <span className="text-gold">({itemCount})</span>}
           </h2>
           <button
             onClick={onClose}
@@ -76,10 +76,10 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
-              <ShoppingBag size={40} strokeWidth={1} className="text-[#E4D5C2]" />
+              <ShoppingBag size={40} strokeWidth={1} className="text-sand" />
               <div>
                 <p className="font-serif text-lg">Your bag is empty</p>
-                <p className="text-sm text-[#29231F]/60 mt-1">
+                <p className="text-sm text-espresso/60 mt-1">
                   Add COCOCRÈME to get started.
                 </p>
               </div>
@@ -99,14 +99,13 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                   <Link
                     href={`/products/${item.slug}`}
                     onClick={onClose}
-                    className="flex-shrink-0 w-20 h-20 bg-[#EFE5D5] rounded-sm overflow-hidden relative"
+                    className="shrink-0 w-20 h-20 rounded-sm overflow-hidden relative"
                   >
-                    <Image
-                      src={item.imageUrl || "/placeholder-product.jpg"}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
+                    <CartThumb
+                      imageUrl={item.imageUrl}
+                      name={item.name}
+                      slug={item.slug}
+                      className="w-full h-full"
                     />
                   </Link>
 
@@ -116,13 +115,13 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
                       <div>
                         <p className="font-medium text-sm leading-snug">{item.name}</p>
                         {item.variantName && (
-                          <p className="text-xs text-[#29231F]/60 mt-0.5">{item.variantName}</p>
+                          <p className="text-xs text-espresso/60 mt-0.5">{item.variantName}</p>
                         )}
                       </div>
                       <button
                         onClick={() => removeItem(item.id)}
                         aria-label={`Remove ${item.name}`}
-                        className="text-[#29231F]/40 hover:text-[#29231F] transition-colors flex-shrink-0"
+                        className="text-espresso/40 hover:text-espresso transition-colors flex-shrink-0"
                       >
                         <X size={14} />
                       </button>
@@ -158,24 +157,24 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
 
         {/* Footer — only when items exist */}
         {items.length > 0 && (
-          <div className="border-t border-[#E4D5C2] px-6 py-5 space-y-4">
+          <div className="border-t border-sand px-6 py-5 space-y-4">
             {/* Totals */}
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-[#29231F]/70">Subtotal</span>
+                <span className="text-espresso/70">Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
               {discountInPaise > 0 && (
-                <div className="flex justify-between text-[#C7A56A]">
+                <div className="flex justify-between text-gold">
                   <span>Discount {couponCode && `(${couponCode})`}</span>
                   <span>−{formatPrice(discountInPaise)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-xs text-[#29231F]/50">
+              <div className="flex justify-between text-xs text-espresso/50">
                 <span>Shipping</span>
                 <span>Calculated at checkout</span>
               </div>
-              <div className="flex justify-between font-medium pt-2 border-t border-[#E4D5C2]">
+              <div className="flex justify-between font-medium pt-2 border-t border-sand">
                 <span>Total</span>
                 <span>{formatPrice(finalTotal)}</span>
               </div>
@@ -191,7 +190,7 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
             </Link>
             <button
               onClick={onClose}
-              className="w-full text-center text-sm text-[#29231F]/60 hover:text-[#29231F] transition-colors"
+              className="w-full text-center text-sm text-espresso/60 hover:text-espresso transition-colors"
             >
               Continue Shopping
             </button>

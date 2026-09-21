@@ -1,163 +1,205 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { EditorialVisual, BrandIcon, LeafMotif } from "@/components/ui/brand-art";
+import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
-  title: "About REFORA",
+  title: "Our Story",
   description:
-    "REFORA is a considered lifestyle brand rooted in simplicity, purity, and everyday ritual. Meet the brand behind COCOCRÈME.",
+    "REFORA began with an ordinary observation: the things we use most are the things we think about least. Considered skincare and pure organic essentials, made in India.",
+  alternates: { canonical: "/about" },
   openGraph: {
-    title: "About REFORA",
-    description:
-      "A considered lifestyle brand rooted in simplicity, purity, and everyday ritual.",
+    title: "Our Story | REFORA",
+    description: "A more thoughtful everyday ritual.",
     type: "website",
   },
 };
 
+const VALUES = [
+  {
+    icon: "leaf" as const,
+    title: "Ingredients that earn their place",
+    body: "Every component is there because of what it does on skin or in a pan — not because it photographs well on a label.",
+  },
+  {
+    icon: "droplet" as const,
+    title: "One thing, done properly",
+    body: "We would rather make a short range well than a long one adequately. New products arrive when they are ready, not when the calendar says so.",
+  },
+  {
+    icon: "jar" as const,
+    title: "Plainly said",
+    body: "No miracle claims, no invented science. What a product does, we say. What it does not, we do not imply.",
+  },
+  {
+    icon: "shield" as const,
+    title: "Made in India, sourced close",
+    body: "Growers, dairies and makers we can name — in batches small enough that someone is actually watching.",
+  },
+];
+
 export default function AboutPage() {
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
-      {/* Hero */}
-      <section className="bg-[#EFE5D5] py-24 text-center border-b border-[#E4D5C2]">
-        <div className="container-refora max-w-2xl mx-auto">
-          <p className="text-xs tracking-[0.18em] text-[#C7A56A] uppercase mb-5">
-            The Brand
-          </p>
-          <h1 className="font-serif text-5xl lg:text-7xl font-light text-[#29231F] leading-tight mb-6">
-            About REFORA
-          </h1>
-          <p className="text-base text-[#29231F]/60 leading-relaxed">
-            Restore · Renew · Refora
-          </p>
+    <>
+      {/* ═══ Hero ══════════════════════════════════════════════════════ */}
+      <section className="relative bg-cream overflow-hidden grain grain-light">
+        <div
+          className="absolute -right-12 -top-16 w-80 text-espresso opacity-[0.07] rotate-12 pointer-events-none"
+          aria-hidden="true"
+        >
+          <LeafMotif className="w-full h-auto" />
+        </div>
+
+        <div className="container-refora relative py-20 md:py-28 text-center">
+          <Reveal>
+            <p className="eyebrow mb-5">Our story</p>
+            <h1
+              className="font-serif font-light text-espresso leading-[1.04] text-balance max-w-3xl mx-auto mb-7"
+              style={{ fontSize: "var(--text-headline)" }}
+            >
+              The things we use most are the things we think about{" "}
+              <span className="italic text-clay">least.</span>
+            </h1>
+            <p className="tagline text-sm text-clay">Restore · Renew · Refora.</p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Brand Story */}
-      <section className="py-20 border-b border-[#E4D5C2]">
-        <div className="container-refora max-w-2xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <span className="gold-rule" aria-hidden="true" />
-            <p className="text-xs tracking-[0.14em] text-[#29231F]/50 uppercase">
-              Our Story
-            </p>
-          </div>
-          <h2 className="font-serif text-3xl lg:text-4xl font-light text-[#29231F] mb-8">
-            Our story is being written.
-          </h2>
-          <div className="space-y-5 text-[#29231F]/70 leading-relaxed">
-            <p>
-              REFORA was born from a simple belief: that the things we use every
-              day should be made with the same care and consideration we bring to
-              the rest of our lives.
-            </p>
-            <p>
-              We are at the very beginning of that journey. Every product we
-              bring to you will be considered — chosen for what it genuinely
-              does, sourced with transparency, and made without shortcuts.
-            </p>
-            <p>
-              We&apos;re not chasing trends. We&apos;re building something
-              quiet, honest, and lasting. This page will grow as we do.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* ═══ The beginning ═════════════════════════════════════════════ */}
+      <section className="section bg-ivory">
+        <div className="container-refora">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <Reveal>
+              <EditorialVisual
+                tone="warm"
+                motif="leaf"
+                alt="The beginning of REFORA"
+                className="aspect-[4/5] w-full rounded-sm shadow-[var(--shadow-lifted)]"
+                sizes="(min-width: 1024px) 48vw, 100vw"
+              />
+            </Reveal>
 
-      {/* Brand Values */}
-      <section className="bg-[#EFE5D5] py-20 border-b border-[#E4D5C2]">
-        <div className="container-refora max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
-              What we stand for
-            </p>
-            <h2 className="font-serif text-4xl font-light text-[#29231F]">
-              Our values
-            </h2>
-          </div>
+            <Reveal delay={110}>
+              <p className="eyebrow mb-4">How it started</p>
+              <h2
+                className="font-serif font-light text-espresso leading-[1.08] text-balance mb-7"
+                style={{ fontSize: "var(--text-headline)" }}
+              >
+                A bar of soap,
+                <br />
+                <span className="italic text-clay">reconsidered.</span>
+              </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Honesty",
-                body: "We say what is in our products. We say what we don&rsquo;t know. We don&rsquo;t invent claims.",
-              },
-              {
-                title: "Simplicity",
-                body: "Fewer, better ingredients. Cleaner formulas. Products that do one thing well.",
-              },
-              {
-                title: "Intention",
-                body: "Nothing in the range exists without a reason. Every product earns its place.",
-              },
-            ].map(({ title, body }) => (
-              <div key={title} className="flex flex-col gap-3">
-                <span className="gold-rule" aria-hidden="true" />
-                <h3 className="font-serif text-xl text-[#29231F]">{title}</h3>
-                <p
-                  className="text-sm text-[#29231F]/60 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: body }}
-                />
+              <div className="space-y-5 text-espresso/70 leading-relaxed text-pretty">
+                <p>
+                  A bar of soap. A spoon of oil. Small objects, reached for without a second
+                  thought, several times a day. We wanted to make those objects worth
+                  noticing — not louder or more complicated, just better made.
+                </p>
+                <p>
+                  COCOCRÈME was where that started. Coconut milk behaves differently from
+                  water in a cold-process bar; colloidal oatmeal has to be milled fine enough
+                  to stay suspended rather than settle at the bottom. It took longer than we
+                  planned. It was worth it.
+                </p>
+                <p className="text-espresso/85">
+                  Restore what the day takes. Renew what care can give back. That is the whole
+                  idea, and it is enough.
+                </p>
               </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Philosophy ════════════════════════════════════════════════ */}
+      <section className="section bg-espresso text-ivory relative overflow-hidden grain">
+        <div className="container-refora relative">
+          <Reveal className="max-w-2xl mb-14">
+            <p className="eyebrow text-gold mb-4">What we hold to</p>
+            <h2
+              className="font-serif font-light text-ivory leading-[1.08] text-balance"
+              style={{ fontSize: "var(--text-headline)" }}
+            >
+              More than a routine.
+              <br />
+              <span className="italic text-gold-soft">A ritual.</span>
+            </h2>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-10">
+            {VALUES.map((value, i) => (
+              <Reveal key={value.title} delay={i * 90}>
+                <div className="flex gap-5 pb-9 border-b border-ivory/12">
+                  <span className="w-12 h-12 rounded-full border border-ivory/25 flex items-center justify-center shrink-0">
+                    <BrandIcon name={value.icon} className="w-5 h-5 text-gold" />
+                  </span>
+                  <div>
+                    <h3 className="font-serif text-xl font-light text-ivory mb-2">
+                      {value.title}
+                    </h3>
+                    <p className="text-sm text-ivory/62 leading-relaxed text-pretty">
+                      {value.body}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Vision */}
-      <section className="py-20 border-b border-[#E4D5C2]">
-        <div className="container-refora max-w-2xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <span className="gold-rule" aria-hidden="true" />
-            <p className="text-xs tracking-[0.14em] text-[#29231F]/50 uppercase">
-              Vision
-            </p>
-          </div>
-          <h2 className="font-serif text-3xl lg:text-4xl font-light text-[#29231F] mb-6">
-            Where we&apos;re going
-          </h2>
-          <p className="text-[#29231F]/70 leading-relaxed mb-5">
-            REFORA is building a considered lifestyle brand — starting with
-            skincare and expanding into organic pantry essentials. We are not in
-            a hurry. Quality and integrity come before scale.
-          </p>
-          <p className="text-[#29231F]/70 leading-relaxed">
-            Our long-term vision is to be the brand you trust for the things
-            that matter most in daily life: what goes on your skin, what goes
-            into your food, and how you feel in the quiet moments of your day.
-          </p>
-        </div>
-      </section>
-
-      {/* Product intro */}
-      <section className="bg-[#29231F] py-20">
-        <div className="container-refora max-w-3xl mx-auto text-center">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-5">
-            Where it begins
-          </p>
-          <h2 className="font-serif text-4xl lg:text-5xl font-light text-[#EFE5D5] mb-6">
-            Meet COCOCRÈME
-          </h2>
-          <p className="text-base text-[#EFE5D5]/60 leading-relaxed mb-8 max-w-xl mx-auto">
-            A coconut milk soap with colloidal oatmeal. Gentle enough for
-            everyday use. The first product in the REFORA range — and a glimpse
-            of what we&apos;re building toward.
-          </p>
-          <Link href="/products/cococreme" className="btn btn-secondary border-[#C7A56A] text-[#C7A56A] hover:bg-[#C7A56A] hover:text-[#29231F]">
-            Discover COCOCRÈME
-          </Link>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
-      <section className="py-16 text-center">
+      {/* ═══ Where we are going ════════════════════════════════════════ */}
+      <section className="section bg-soft-white">
         <div className="container-refora">
-          <p className="text-sm text-[#29231F]/60 mb-4">
-            Have questions? We&apos;d love to hear from you.
-          </p>
-          <Link href="/contact" className="btn-ghost text-sm">
-            Get in touch →
-          </Link>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <Reveal delay={110} className="order-2 lg:order-1">
+              <p className="eyebrow mb-4">Where this goes</p>
+              <h2
+                className="font-serif font-light text-espresso leading-[1.08] text-balance mb-7"
+                style={{ fontSize: "var(--text-headline)" }}
+              >
+                Two shelves,
+                <br />
+                <span className="italic text-clay">one standard.</span>
+              </h2>
+
+              <div className="space-y-5 text-espresso/70 leading-relaxed text-pretty mb-9">
+                <p>
+                  Skincare is where we began. REFORA ORGANIC is where we are heading — cold
+                  pressed oils and bilona ghee, held to exactly the same standard as what goes
+                  on your skin.
+                </p>
+                <p>
+                  It is the same question either way: what would this be like if nothing about
+                  it were rushed?
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/shop" className="btn btn-primary">
+                  <span>Shop the range</span>
+                  <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
+                </Link>
+                <Link href="/organic" className="btn btn-secondary">
+                  <span>REFORA Organic</span>
+                </Link>
+              </div>
+            </Reveal>
+
+            <Reveal className="order-1 lg:order-2">
+              <EditorialVisual
+                tone="glow"
+                motif="oat"
+                alt="REFORA ORGANIC — what comes next"
+                className="aspect-[4/3] w-full rounded-sm shadow-[var(--shadow-lifted)]"
+                sizes="(min-width: 1024px) 48vw, 100vw"
+              />
+            </Reveal>
+          </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }

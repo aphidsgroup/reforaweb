@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/store/cart";
 import { formatPrice } from "@/lib/utils";
+import { CartThumb } from "@/components/cart/cart-thumb";
 
 // Note: metadata for 'use client' pages should go in a sibling metadata.ts
 // or parent layout. Reference values:
@@ -65,19 +66,19 @@ export default function CartPage() {
   // Empty state
   if (items.length === 0) {
     return (
-      <div className="bg-[#F7F2E9] min-h-screen">
-        <div className="bg-[#EFE5D5] py-12 text-center border-b border-[#E4D5C2]">
+      <div className="bg-ivory min-h-screen">
+        <div className="bg-cream py-12 text-center border-b border-sand">
           <div className="container-refora">
-            <h1 className="font-serif text-4xl font-light text-[#29231F]">
+            <h1 className="font-serif text-4xl font-light text-espresso">
               Your Bag
             </h1>
           </div>
         </div>
         <div className="container-refora max-w-md mx-auto py-24 text-center">
-          <p className="font-serif text-3xl text-[#29231F]/40 mb-4">
+          <p className="font-serif text-3xl text-espresso/40 mb-4">
             Your bag is empty.
           </p>
-          <p className="text-sm text-[#29231F]/50 mb-8">
+          <p className="text-sm text-espresso/50 mb-8">
             Discover our considered range of skincare and organic essentials.
           </p>
           <Link href="/shop" className="btn btn-primary">
@@ -89,13 +90,13 @@ export default function CartPage() {
   }
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
+    <div className="bg-ivory min-h-screen">
       {/* Header */}
-      <div className="bg-[#EFE5D5] py-12 border-b border-[#E4D5C2]">
+      <div className="bg-cream py-12 border-b border-sand">
         <div className="container-refora">
-          <h1 className="font-serif text-4xl font-light text-[#29231F]">
+          <h1 className="font-serif text-4xl font-light text-espresso">
             Your Bag{" "}
-            <span className="text-[#29231F]/40 text-2xl">
+            <span className="text-espresso/40 text-2xl">
               ({itemCount} {itemCount === 1 ? "item" : "items"})
             </span>
           </h1>
@@ -105,38 +106,31 @@ export default function CartPage() {
       <div className="container-refora py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
           {/* Cart items — 2/3 width */}
-          <div className="lg:col-span-2 flex flex-col gap-0 divide-y divide-[#E4D5C2] border-t border-b border-[#E4D5C2]">
+          <div className="lg:col-span-2 flex flex-col gap-0 divide-y divide-sand border-t border-b border-sand">
             {items.map((item) => (
               <div key={item.id} className="py-6 flex gap-4 items-start">
                 {/* Thumbnail */}
-                <div className="w-20 h-20 bg-[#EFE5D5] rounded-sm overflow-hidden flex-shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <CartThumb imageUrl={item.imageUrl} name={item.name} slug={item.slug} />
 
                 {/* Details */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div>
-                      <p className="font-serif text-lg text-[#29231F]">
+                      <p className="font-serif text-lg text-espresso">
                         {item.name}
                       </p>
                       {item.variantName && (
-                        <p className="text-xs text-[#29231F]/50">
+                        <p className="text-xs text-espresso/50">
                           {item.variantName}
                         </p>
                       )}
                     </div>
-                    <p className="font-medium text-[#29231F] flex-shrink-0">
+                    <p className="font-medium text-espresso flex-shrink-0">
                       {formatPrice(item.priceInPaise * item.quantity)}
                     </p>
                   </div>
 
-                  <p className="text-xs text-[#29231F]/50 mb-3">
+                  <p className="text-xs text-espresso/50 mb-3">
                     {formatPrice(item.priceInPaise)} each
                   </p>
 
@@ -164,7 +158,7 @@ export default function CartPage() {
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-xs text-[#29231F]/40 hover:text-red-500 transition-colors"
+                      className="text-xs text-espresso/40 hover:text-red-500 transition-colors"
                       aria-label={`Remove ${item.name} from bag`}
                     >
                       Remove
@@ -177,23 +171,23 @@ export default function CartPage() {
 
           {/* Order summary — 1/3 width */}
           <div className="lg:col-span-1">
-            <div className="bg-[#EFE5D5] border border-[#E4D5C2] rounded-sm p-6 lg:sticky lg:top-8">
-              <h2 className="font-serif text-xl text-[#29231F] mb-5">
+            <div className="bg-cream border border-sand rounded-sm p-6 lg:sticky lg:top-8">
+              <h2 className="font-serif text-xl text-espresso mb-5">
                 Order Summary
               </h2>
 
               {/* Coupon */}
               <div className="mb-5">
                 {couponCode ? (
-                  <div className="flex items-center justify-between bg-[#C7A56A]/10 border border-[#C7A56A]/30 rounded-sm px-3 py-2">
-                    <span className="text-xs text-[#29231F]">
+                  <div className="flex items-center justify-between bg-gold/10 border border-gold/30 rounded-sm px-3 py-2">
+                    <span className="text-xs text-espresso">
                       Coupon:{" "}
-                      <strong className="text-[#C7A56A]">{couponCode}</strong>{" "}
+                      <strong className="text-gold">{couponCode}</strong>{" "}
                       applied
                     </span>
                     <button
                       onClick={removeCoupon}
-                      className="text-xs text-[#29231F]/40 hover:text-red-500 ml-2"
+                      className="text-xs text-espresso/40 hover:text-red-500 ml-2"
                       aria-label="Remove coupon"
                     >
                       ✕
@@ -203,7 +197,7 @@ export default function CartPage() {
                   <div>
                     <label
                       htmlFor="coupon-input"
-                      className="block text-xs text-[#29231F]/60 uppercase tracking-wide mb-1"
+                      className="block text-xs text-espresso/60 uppercase tracking-wide mb-1"
                     >
                       Coupon code
                     </label>
@@ -243,26 +237,26 @@ export default function CartPage() {
               </div>
 
               {/* Amounts */}
-              <div className="space-y-2 text-sm border-t border-[#E4D5C2] pt-4">
-                <div className="flex justify-between text-[#29231F]/70">
+              <div className="space-y-2 text-sm border-t border-sand pt-4">
+                <div className="flex justify-between text-espresso/70">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotalInPaise)}</span>
                 </div>
                 {discountInPaise > 0 && (
-                  <div className="flex justify-between text-[#C7A56A]">
+                  <div className="flex justify-between text-gold">
                     <span>Discount</span>
                     <span>−{formatPrice(discountInPaise)}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-[#29231F]/50 text-xs">
+                <div className="flex justify-between text-espresso/50 text-xs">
                   <span>Shipping</span>
                   <span>Calculated at checkout</span>
                 </div>
-                <div className="flex justify-between font-semibold text-[#29231F] text-base pt-2 border-t border-[#E4D5C2]">
+                <div className="flex justify-between font-semibold text-espresso text-base pt-2 border-t border-sand">
                   <span>Total</span>
                   <span>{formatPrice(finalTotalInPaise)}</span>
                 </div>
-                <p className="text-xs text-[#29231F]/40">
+                <p className="text-xs text-espresso/40">
                   Inclusive of all taxes
                 </p>
               </div>
@@ -277,7 +271,7 @@ export default function CartPage() {
 
               <Link
                 href="/shop"
-                className="block text-center text-xs text-[#29231F]/40 hover:text-[#29231F] mt-3 transition-colors"
+                className="block text-center text-xs text-espresso/40 hover:text-espresso mt-3 transition-colors"
               >
                 ← Continue shopping
               </Link>

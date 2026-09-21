@@ -1,187 +1,154 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { formatPrice } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { EditorialVisual, BrandIcon } from "@/components/ui/brand-art";
+import { ProductCard } from "@/components/shop/product-card";
+import { Reveal } from "@/components/ui/reveal";
+import { ReviewsSection } from "@/components/home/reviews-section";
+import { COCOCREME } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Skincare",
   description:
-    "REFORA Skincare — considered formulas for everyday rituals. Meet COCOCRÈME, a coconut milk soap with colloidal oatmeal.",
+    "Considered skincare from REFORA. Meet COCOCRÈME — coconut milk soap with colloidal oatmeal that gently cleanses, nourishes and leaves skin soft.",
+  alternates: { canonical: "/skincare" },
   openGraph: {
     title: "Skincare | REFORA",
-    description:
-      "Considered skincare for everyday rituals. Gentle, nourishing, grounding.",
+    description: "Considered formulations for daily care.",
     type: "website",
   },
 };
 
-// Static data — replace with DB query for published skincare products
-const SKINCARE_PRODUCTS = [
-  {
-    slug: "cococreme",
-    name: "COCOCRÈME",
-    shortDescription:
-      "A coconut milk soap with colloidal oatmeal — gentle, nourishing, and grounding. Crafted for everyday rituals.",
-    priceInPaise: 0, // [TODO: set from DB]
-    mrpInPaise: undefined as number | undefined,
-    imageUrl: "/images/cococreme-placeholder-1.jpg", // [PLACEHOLDER]
-    size: "100g / 3.52 oz",
-  },
-];
-
-export default async function SkincareCollectionPage() {
-  const products = SKINCARE_PRODUCTS;
-
+export default function SkincarePage() {
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
-      {/* Hero */}
-      <section className="bg-[#EFE5D5] py-20 text-center border-b border-[#E4D5C2]">
-        <div className="container-refora max-w-2xl mx-auto">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-4">
-            Collection
-          </p>
-          <h1 className="font-serif text-5xl lg:text-7xl font-light text-[#29231F] mb-6">
-            Skincare
-          </h1>
-          <p className="text-base text-[#29231F]/60 leading-relaxed">
-            Formulated with care. Ingredients chosen for what they do, not what
-            they cost. Simple rituals with a real difference.
-          </p>
-        </div>
-      </section>
-
-      {/* Featured product — COCOCRÈME */}
-      <section className="container-refora py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center mb-16">
-          {/* Featured image */}
-          <div className="relative bg-[#EFE5D5] aspect-square rounded-sm overflow-hidden">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/cococreme-placeholder-1.jpg" // [PLACEHOLDER]
-              alt="COCOCRÈME coconut milk soap bar"
-              className="w-full h-full object-cover"
-            />
-            <span className="absolute top-3 left-3 text-[9px] tracking-widest text-[#29231F]/30 select-none">
-              [PLACEHOLDER — client asset]
-            </span>
-            <span className="absolute top-4 right-4 bg-[#29231F] text-[#EFE5D5] text-[10px] px-3 py-1 tracking-[0.12em] uppercase">
-              New
-            </span>
-          </div>
-
-          {/* Featured info */}
-          <div className="flex flex-col gap-5">
-            <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase">
-              Featured · Skincare
-            </p>
-            <h2 className="font-serif text-4xl lg:text-5xl font-light text-[#29231F]">
-              COCOCRÈME
-            </h2>
-            <p className="text-base text-[#29231F]/70 leading-relaxed">
-              A coconut milk soap with colloidal oatmeal — gentle, nourishing,
-              and grounding. Crafted for everyday rituals. Suitable for all skin
-              types.
-            </p>
-            <p className="text-sm text-[#29231F]/50">100g / 3.52 oz</p>
-
-            {products[0]?.priceInPaise && products[0].priceInPaise > 0 ? (
-              <p className="font-serif text-3xl text-[#29231F]">
-                {formatPrice(products[0].priceInPaise)}
+    <>
+      {/* ═══ Hero ══════════════════════════════════════════════════════ */}
+      <section className="relative bg-cream overflow-hidden grain grain-light">
+        <div className="container-refora relative py-16 md:py-24">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <Reveal>
+              <p className="eyebrow mb-4">The skincare range</p>
+              <h1
+                className="font-serif font-light text-espresso leading-[1.04] text-balance mb-6"
+                style={{ fontSize: "var(--text-headline)" }}
+              >
+                Care that asks
+                <br />
+                <span className="italic text-clay">very little of you.</span>
+              </h1>
+              <p className="text-espresso/68 leading-relaxed max-w-md text-pretty mb-8">
+                One bar, made properly, used every day. Considered formulations that do one
+                thing well rather than several things vaguely.
               </p>
-            ) : (
-              <p className="text-sm text-[#29231F]/50">Price coming soon</p>
-            )}
-
-            <div className="flex flex-col sm:flex-row gap-3 mt-2">
-              <Link
-                href="/products/cococreme"
-                className="btn btn-primary text-center"
-              >
-                Shop Now
+              <Link href={`/products/${COCOCREME.slug}`} className="btn btn-primary">
+                <span>Shop {COCOCREME.name}</span>
+                <ArrowRight size={14} strokeWidth={1.5} aria-hidden="true" />
               </Link>
-              <Link
-                href="/products/cococreme#ingredients"
-                className="btn btn-secondary text-center"
-              >
-                Learn More
-              </Link>
-            </div>
-          </div>
-        </div>
+            </Reveal>
 
-        {/* All skincare grid */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="gold-rule" aria-hidden="true" />
-            <p className="text-xs tracking-[0.14em] text-[#29231F]/50 uppercase">
-              All Skincare
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {products.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="group block bg-[#EFE5D5] rounded-sm overflow-hidden hover:shadow-md transition-shadow"
-                aria-label={`View ${p.name}`}
-              >
-                <div className="relative aspect-[4/5] bg-[#E4D5C2] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={p.imageUrl}
-                    alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-2 left-2 text-[9px] tracking-widest text-[#29231F]/30 select-none">
-                    [PLACEHOLDER]
-                  </span>
-                </div>
-                <div className="p-4">
-                  <p className="font-serif text-xl text-[#29231F] mb-1">
-                    {p.name}
-                  </p>
-                  <p className="text-xs text-[#29231F]/60 mb-3 leading-relaxed line-clamp-2">
-                    {p.shortDescription}
-                  </p>
-                  <p className="text-xs text-[#29231F]/50 mb-1">{p.size}</p>
-                  {p.priceInPaise > 0 ? (
-                    <span className="font-medium text-[#29231F] text-sm">
-                      {formatPrice(p.priceInPaise)}
-                    </span>
-                  ) : (
-                    <span className="text-xs text-[#29231F]/50">
-                      Price coming soon
-                    </span>
-                  )}
-                </div>
-              </Link>
-            ))}
+            <Reveal delay={110}>
+              <EditorialVisual
+                tone="glow"
+                motif="oat"
+                alt="COCOCRÈME — coconut milk soap with colloidal oatmeal"
+                className="aspect-[4/3] w-full rounded-sm shadow-[var(--shadow-lifted)]"
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                priority
+              />
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Values strip */}
-      <section className="bg-[#EFE5D5] py-12 border-t border-[#E4D5C2]">
+      {/* ═══ The product ═══════════════════════════════════════════════ */}
+      <section className="section bg-ivory" aria-label="Skincare products">
         <div className="container-refora">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            {[
-              { icon: "🌿", label: "No harsh sulphates" },
-              { icon: "🧴", label: "pH balanced" },
-              { icon: "🐇", label: "Cruelty-free" },
-              { icon: "🇮🇳", label: "Made in India" },
-            ].map(({ icon, label }) => (
-              <div key={label} className="flex flex-col items-center gap-2">
-                <span className="text-2xl" aria-hidden="true">
-                  {icon}
-                </span>
-                <p className="text-xs text-[#29231F]/60 tracking-wide">
-                  {label}
+          <Reveal className="mb-10">
+            <p className="eyebrow mb-4">Available now</p>
+            <h2
+              className="font-serif font-light text-espresso leading-[1.08]"
+              style={{ fontSize: "var(--text-title)" }}
+            >
+              One product, to begin with.
+            </h2>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7">
+            <Reveal>
+              <ProductCard product={COCOCREME} />
+            </Reveal>
+
+            <Reveal delay={110} className="sm:col-span-1 lg:col-span-2">
+              <div className="h-full flex flex-col justify-center border border-sand rounded-sm bg-soft-white p-8 md:p-12">
+                <p className="eyebrow mb-5">Why only one</p>
+                <p
+                  className="font-serif font-light text-espresso leading-snug mb-6 text-balance"
+                  style={{ fontSize: "var(--text-title)" }}
+                >
+                  Because a range should earn its shelf, one product at a time.
                 </p>
+                <p className="text-espresso/65 leading-relaxed text-pretty mb-8 max-w-lg">
+                  COCOCRÈME took longer than it should have. Coconut milk behaves differently
+                  from water in a cold-process bar, and colloidal oatmeal has to be milled
+                  finely enough to stay suspended rather than settle. We kept adjusting until
+                  it felt right on skin — then stopped.
+                </p>
+
+                <ul className="grid sm:grid-cols-3 gap-6">
+                  {COCOCREME.benefits.map((b) => (
+                    <li key={b.title}>
+                      <BrandIcon name={b.icon} className="w-6 h-6 text-gold mb-3" />
+                      <p className="text-sm font-medium text-espresso mb-1">{b.title}</p>
+                      <p className="text-xs text-espresso/60 leading-relaxed">{b.body}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
+            </Reveal>
           </div>
         </div>
       </section>
-    </div>
+
+      {/* ═══ How to use ════════════════════════════════════════════════ */}
+      <section className="section bg-espresso text-ivory relative overflow-hidden grain">
+        <div className="container-refora relative">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-start">
+            <Reveal>
+              <p className="eyebrow text-gold mb-4">The ritual</p>
+              <h2
+                className="font-serif font-light text-ivory leading-[1.08] text-balance mb-6"
+                style={{ fontSize: "var(--text-headline)" }}
+              >
+                Four steps,
+                <br />
+                <span className="italic text-gold-soft">thirty seconds.</span>
+              </h2>
+              <p className="text-ivory/65 leading-relaxed text-pretty">
+                Nothing complicated. The only thing worth being deliberate about is letting
+                the lather sit a moment before you rinse.
+              </p>
+            </Reveal>
+
+            <Reveal delay={110}>
+              <ol className="space-y-7">
+                {COCOCREME.howToUse.map((step, i) => (
+                  <li key={i} className="flex gap-6 pb-7 border-b border-ivory/12 last:border-0 last:pb-0">
+                    <span
+                      className="font-serif text-3xl font-light text-gold/70 shrink-0 tnum leading-none"
+                      aria-hidden="true"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-ivory/75 leading-relaxed pt-1">{step}</p>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <ReviewsSection />
+    </>
   );
 }

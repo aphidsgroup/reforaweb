@@ -149,17 +149,17 @@ const ALL_FAQS: FAQ[] = [
 function FaqItem({ faq }: { faq: FAQ }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-[#E4D5C2]">
+    <div className="border-b border-sand">
       <button
         className="w-full flex items-center justify-between py-5 text-left gap-4"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
       >
-        <span className="font-medium text-sm text-[#29231F] leading-snug">
+        <span className="font-medium text-sm text-espresso leading-snug">
           {faq.q}
         </span>
         <span
-          className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-[#C7A56A] transition-transform duration-200 text-lg"
+          className="flex-shrink-0 w-5 h-5 flex items-center justify-center text-gold transition-transform duration-200 text-lg"
           style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
           aria-hidden="true"
         >
@@ -167,7 +167,7 @@ function FaqItem({ faq }: { faq: FAQ }) {
         </span>
       </button>
       {open && (
-        <p className="pb-5 text-sm text-[#29231F]/70 leading-relaxed">
+        <p className="pb-5 text-sm text-espresso/70 leading-relaxed">
           {faq.a}
         </p>
       )}
@@ -185,14 +185,14 @@ export default function FaqsPage() {
       : ALL_FAQS.filter((f) => f.category === activeCategory);
 
   return (
-    <div className="bg-[#F7F2E9] min-h-screen">
+    <div className="bg-ivory min-h-screen">
       {/* Header */}
-      <div className="bg-[#EFE5D5] py-16 text-center border-b border-[#E4D5C2]">
+      <div className="bg-cream py-16 text-center border-b border-sand">
         <div className="container-refora">
-          <p className="text-xs tracking-[0.14em] text-[#C7A56A] uppercase mb-3">
+          <p className="text-xs tracking-[0.14em] text-gold uppercase mb-3">
             Help
           </p>
-          <h1 className="font-serif text-5xl lg:text-6xl font-light text-[#29231F]">
+          <h1 className="font-serif text-5xl lg:text-6xl font-light text-espresso">
             Frequently Asked Questions
           </h1>
         </div>
@@ -213,8 +213,8 @@ export default function FaqsPage() {
               onClick={() => setActiveCategory(cat)}
               className={`text-xs px-4 py-2 rounded-sm border transition-colors ${
                 activeCategory === cat
-                  ? "bg-[#29231F] text-[#FFFDFC] border-[#29231F]"
-                  : "border-[#E4D5C2] text-[#29231F]/60 hover:border-[#29231F]"
+                  ? "bg-espresso text-soft-white border-espresso"
+                  : "border-sand text-espresso/60 hover:border-espresso"
               }`}
             >
               {cat}
@@ -224,7 +224,7 @@ export default function FaqsPage() {
 
         {/* FAQ list */}
         <div
-          className="divide-y divide-[#E4D5C2] border-t border-[#E4D5C2]"
+          className="divide-y divide-sand border-t border-sand"
           role="tabpanel"
         >
           {filtered.map((faq, i) => (
@@ -233,8 +233,8 @@ export default function FaqsPage() {
         </div>
 
         {/* Contact CTA */}
-        <div className="mt-12 bg-[#EFE5D5] rounded-sm p-6 text-center border border-[#E4D5C2]">
-          <p className="text-sm text-[#29231F]/70 mb-3">
+        <div className="mt-12 bg-cream rounded-sm p-6 text-center border border-sand">
+          <p className="text-sm text-espresso/70 mb-3">
             Didn&apos;t find what you were looking for?
           </p>
           <a href="/contact" className="btn btn-primary inline-flex text-sm">
