@@ -1,6 +1,6 @@
 import { Star, BadgeCheck } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { REVIEWS, SHOW_SAMPLE_REVIEWS } from "@/lib/catalog";
+import { getApprovedReviews } from "@/lib/reviews";
 
 export function StarRating({ rating, size = 13 }: { rating: number; size?: number }) {
   return (
@@ -20,19 +20,16 @@ export function StarRating({ rating, size = 13 }: { rating: number; size?: numbe
 
 /**
  * Customer reviews.
- *
- * ⚠️ The entries in `REVIEWS` are sample content written to build and
- * demonstrate the layout — they are not real customer feedback. Replace them
- * with verified reviews (or wire this to the `reviews` table) before launch.
- * The dev-only notice below is a guard against shipping them by accident.
+ * Wired directly to the Postgres database. 
+ * Hides completely if there are no approved reviews yet.
  */
-export function ReviewsSection() {
-  if (!SHOW_SAMPLE_REVIEWS || REVIEWS.length === 0) return null;
+export async function ReviewsSection() {
+  const reviews = await getApprovedReviews(3); // Fetch 3 most recent
 
-  // Derived from the cards on screen rather than a hardcoded figure, so the
-  // headline aggregate can never claim more reviews than are actually shown.
+  if (reviews.length === 0) return null;
+
   const average =
-    Math.round((REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length) * 10) / 10;
+    Math.round((reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length) * 10) / 10;
 
   return (
     <section className="section bg-cream relative overflow-hidden grain grain-light" aria-label="Customer reviews">
@@ -50,13 +47,13 @@ export function ReviewsSection() {
             <StarRating rating={average} size={16} />
             <p className="text-sm text-espresso/65">
               <span className="tnum font-medium text-espresso">{average}</span> average ·{" "}
-              <span className="tnum">{REVIEWS.length}</span> reviews
+              <span className="tnum">{reviews.length}</span> reviews
             </p>
           </div>
         </Reveal>
 
         <div className="grid md:grid-cols-3 gap-5 lg:gap-6">
-          {REVIEWS.map((review, i) => (
+          {reviews.map((review, i) => (
             <Reveal key={review.id} delay={i * 110}>
               <figure className="h-full flex flex-col bg-soft-white border border-sand rounded-sm p-7 card card-hover">
                 <StarRating rating={review.rating} />
@@ -94,12 +91,6 @@ export function ReviewsSection() {
             </Reveal>
           ))}
         </div>
-
-        {process.env.NODE_ENV !== "production" && (
-          <p className="mt-10 text-center text-xs text-clay">
-            Sample review content — replace with verified customer reviews before launch.
-          </p>
-        )}
       </div>
     </section>
   );
