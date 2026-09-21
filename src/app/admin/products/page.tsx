@@ -80,6 +80,7 @@ export default async function ProductsPage() {
                   <th scope="col" className="eyebrow font-medium px-5 py-3.5 text-right">Price</th>
                   <th scope="col" className="eyebrow font-medium px-5 py-3.5 text-right">MRP</th>
                   <th scope="col" className="eyebrow font-medium px-5 py-3.5">Stock</th>
+                  <th scope="col" className="sr-only">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-sand">
@@ -124,6 +125,11 @@ export default async function ProductsPage() {
                           <span>Save</span>
                         </button>
                       </form>
+                    </td>
+                    <td className="px-5 py-4 text-right">
+                      <Link href={`/admin/products/${product.id}`} className="text-xs text-clay hover:text-espresso font-medium uppercase tracking-widest">
+                        Edit
+                      </Link>
                     </td>
                   </tr>
                 ))}

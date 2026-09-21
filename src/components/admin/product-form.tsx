@@ -132,6 +132,21 @@ export function ProductForm({
           </label>
         </section>
 
+        {/* Images */}
+        <section className="bg-soft-white border border-sand rounded-sm p-6 space-y-5">
+          <h2 className="font-serif text-xl font-light text-espresso">Images</h2>
+
+          <Field label="Upload Images" hint="Select one or more images. They will be automatically converted to optimized WebP format on Cloudinary.">
+            <input
+              type="file"
+              name="images"
+              multiple
+              accept="image/*"
+              className="input-refora w-full"
+            />
+          </Field>
+        </section>
+
         {/* Pricing */}
         <section className="bg-soft-white border border-sand rounded-sm p-6 space-y-5">
           <h2 className="font-serif text-xl font-light text-espresso">Pricing &amp; stock</h2>

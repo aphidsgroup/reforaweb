@@ -4,8 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { eq, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { products, inventory } from "@/db/schema";
+import { products, inventory, productImages } from "@/db/schema";
 import { requireAdmin, requireRole, recordAudit } from "@/lib/admin-auth";
+import { uploadImage } from "@/lib/cloudinary";
 
 const STATUSES = ["draft", "published", "archived", "upcoming"] as const;
 type Status = (typeof STATUSES)[number];
@@ -21,7 +22,7 @@ function slugify(input: string): string {
   return input
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
@@ -63,18 +64,50 @@ function readProductForm(formData: FormData) {
   };
 }
 
+async function handleImageUploads(productId: string, formData: FormData) {
+  const images = formData.getAll("images") as File[];
+  const uploadedUrls = [];
+
+  for (const image of images) {
+    if (image.size > 0 && image.name) {
+      const result = await uploadImage(image);
+      if (result) uploadedUrls.push(result);
+    }
+  }
+
+  if (uploadedUrls.length > 0) {
+    const [maxRow] = await db
+      .select({ max: sql<number>`max(${productImages.displayOrder})` })
+      .from(productImages)
+      .where(eq(productImages.productId, productId));
+    
+    let order = Number(maxRow?.max ?? 0);
+
+    for (let i = 0; i < uploadedUrls.length; i++) {
+      await db.insert(productImages).values({
+        productId,
+        cloudinaryId: uploadedUrls[i].publicId,
+        url: uploadedUrls[i].url,
+        isPrimary: order === 0 && i === 0, // First image is primary if none exist
+        displayOrder: order + i + 1,
+      });
+    }
+  }
+}
+
 export async function createProduct(formData: FormData) {
   const admin = await requireRole("super_admin", "admin");
   const values = readProductForm(formData);
 
   const [created] = await db.insert(products).values(values).returning({ id: products.id });
 
-  // Every product gets an inventory row up front, so stock edits never have to
-  // branch on whether one exists.
+  // Every product gets an inventory row up front
   await db.insert(inventory).values({
     productId: created.id,
     quantity: Number(formData.get("stock") ?? 0) || 0,
   });
+
+  await handleImageUploads(created.id, formData);
 
   await recordAudit(admin, "product.create", "products", created.id, { name: values.name });
 
@@ -90,6 +123,8 @@ export async function updateProduct(formData: FormData) {
 
   const values = readProductForm(formData);
   await db.update(products).set(values).where(eq(products.id, id));
+
+  await handleImageUploads(id, formData);
 
   await recordAudit(admin, "product.update", "products", id, { name: values.name });
 
